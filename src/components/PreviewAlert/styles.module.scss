@@ -1,0 +1,19 @@
+@use "mixins" as m;
+
+.outer {
+  font-family: var(--font-display);
+  background-color: #ffff00;
+  border-bottom: 1px #000 solid;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.inner {
+  @include m.container;
+
+  text-align: center;
+}
+
+.link {
+  text-decoration: underline;
+}
