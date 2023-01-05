@@ -11,8 +11,10 @@ declare namespace ShopifyBuy {
     handle: string;
     type: ItemType;
   }
+
   export interface Collection {
     handle: string;
+    products?: ShopifyBuy.Product[];
     type: ItemType;
   }
 }

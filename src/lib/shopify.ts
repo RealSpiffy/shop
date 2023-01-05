@@ -10,7 +10,7 @@ export const parseResponse = (response) => JSON.parse(JSON.stringify(response));
 export const fetchAllProducts: () => Promise<ShopifyBuy.Product[]> = async () =>
   await shopifyClient.product.fetchAll().then(parseResponse);
 
-export const fetchProductByHandle: (
+export const fetchProduct: (
   handle: string
 ) => Promise<ShopifyBuy.Product> = async (handle) =>
   shopifyClient.product.fetchByHandle(handle).then(parseResponse);
@@ -19,7 +19,7 @@ export const fetchAllCollections: () => Promise<
   ShopifyBuy.Collection[]
 > = async () => await shopifyClient.collection.fetchAll().then(parseResponse);
 
-export const fetchCollectionWithProducts: (
+export const fetchCollection: (
   handle: string
 ) => Promise<ShopifyBuy.Collection> = async (handle) =>
-  await shopifyClient.collection.fetchWithProducts(handle).then(parseResponse);
+  await shopifyClient.collection.fetchByHandle(handle).then(parseResponse);

@@ -4,21 +4,25 @@ import { TypeName } from "@/types/shopify-buy";
 
 type ShopifyLinkProps = {
   children: React.ReactNode;
-  item: ShopifyBuy.Product | ShopifyBuy.Collection;
+  object: ShopifyBuy.Product | ShopifyBuy.Collection;
 };
 
-export const ShopifyLink: React.FC<ShopifyLinkProps> = ({ children, item }) => {
+export const ShopifyLink: React.FC<ShopifyLinkProps> = ({
+  children,
+  object,
+}) => {
   const router = useRouter();
 
   let href;
-  switch (item.type.name) {
+  switch (object.type.name) {
     case TypeName.Collection:
-      href = `/collection/${item.handle}`;
+      href = `/collection/${object.handle}`;
       break;
     case TypeName.Product:
-      href = `/product/${item.handle}`;
+      href = `/product/${object.handle}`;
       break;
     default:
+      console.warn("Unsupported object:", object.type.name);
       href = "/";
   }
 
