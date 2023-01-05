@@ -1,18 +1,6 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
+import { ProductDetail } from "@/layouts/ProductDetail";
 import { fetchAllProducts, fetchProduct } from "@/lib/shopify";
-
-type PageProps = {
-  product: ShopifyBuy.Product;
-};
-
-export default function ProductDetailPage({ product }: PageProps) {
-  return (
-    <>
-      <h1>PDP: {product.title}</h1>
-      <pre>{JSON.stringify(product, null, 2)}</pre>
-    </>
-  );
-}
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -32,3 +20,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
   return { paths, fallback: false };
 };
+
+export default ProductDetail;

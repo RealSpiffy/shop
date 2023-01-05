@@ -1,25 +1,6 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
-import { ShopifyLink } from "@/components/Link";
+import { CollectionDetail } from "@/layouts/CollectionDetail";
 import { fetchAllCollections, fetchCollection } from "@/lib/shopify";
-
-type PageProps = {
-  collection: ShopifyBuy.Collection;
-};
-
-export default function CollectionDetailPage({ collection }: PageProps) {
-  return (
-    <>
-      <h1>PLP: {collection.title}</h1>
-      <ul>
-        {collection?.products.map((product) => (
-          <li key={product.handle}>
-            <ShopifyLink object={product}>{product.title}</ShopifyLink>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -39,3 +20,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
   return { paths, fallback: false };
 };
+
+export default CollectionDetail;
