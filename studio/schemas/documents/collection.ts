@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { validateProductHandle } from "../../lib/shopify";
+import { validateCollectionHandle } from "../../lib/shopify";
 
-export const product = {
-  name: "product",
-  title: "Product",
+export const collection = {
+  name: "collection",
+  title: "Collection",
   type: "document",
   fields: [
     {
@@ -11,13 +11,13 @@ export const product = {
       type: "slug",
       validation: (Rule: any) =>
         Rule.required().custom(
-          async (value: any) => await validateProductHandle(value?.current)
+          async (value: any) => await validateCollectionHandle(value?.current)
         ),
     },
     {
-      name: "related",
+      name: "featured",
       type: "array",
-      title: "Related",
+      title: "Featured Products",
       // TODO: abstract product-handle input with validation
       of: [{ type: "string" }],
     },

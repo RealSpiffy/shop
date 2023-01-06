@@ -1,6 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { CollectionDetail } from "@/layouts/CollectionDetail";
 import { fetchAllCollections, fetchCollection } from "@/lib/shopify";
+import { fetchCollectionByHandle } from "@/queries/collection";
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -9,8 +10,11 @@ export const getStaticProps: GetStaticProps = async ({
   const handle = Array.isArray(params.handle)
     ? params.handle[0]
     : params.handle;
+  // Fetch initial data from Shopify
   const collection = await fetchCollection(handle);
-  return { props: { preview, collection } };
+  // Fetch additional data from Sanity Studio
+  const data = await fetchCollectionByHandle(handle);
+  return { props: { preview, data, collection } };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
