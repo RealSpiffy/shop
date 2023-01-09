@@ -25,7 +25,7 @@ export const Button = ({
       disabled={disabled}
       className={clsx(styles.outer, cta && styles.cta)}
     >
-      {disabled ? disabledLabel ?? label : label}
+      {disabled && disabledLabel ? disabledLabel : label}
     </button>
   );
 };
