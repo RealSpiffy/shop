@@ -18,7 +18,7 @@ export const CollectionLink = ({
   const content = (
     <>
       <div>{label}</div>
-      {background.src && (
+      {background && (
         <div className={styles.bgImageWrap}>
           {/* disabled warning to use next/image just for this file... */}
           <img
@@ -38,7 +38,7 @@ export const CollectionLink = ({
           href={href}
           className={clsx(
             styles.outer,
-            background.src && styles.overlay,
+            background && styles.overlay,
             styles.link
           )}
         >
@@ -46,7 +46,7 @@ export const CollectionLink = ({
           <span className={styles.linkArrow}>{`>`}</span>
         </Link>
       ) : (
-        <div className={clsx(styles.outer, background.src && styles.overlay)}>
+        <div className={clsx(styles.outer, background && styles.overlay)}>
           {content}
         </div>
       )}
