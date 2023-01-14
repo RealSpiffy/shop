@@ -1,38 +1,43 @@
 .outer {
-  background: black;
-  color: white;
-  opacity: 0.5;
+  background: #dddddd;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: black;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.5em 1.5em;
-  width: 200px;
-  height: 200px;
+
   font-size: 1.2em;
+  height: 200px;
+  padding: 0.5em 1.5em;
   position: relative;
+  width: 200px;
 
-  &.default {
-    background: grey;
-    color: black;
+  &.overlay {
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
   }
-}
 
-.link {
-  color: inherit;
-  text-decoration: none;
-  margin-left: auto;
+  &.link {
+    text-decoration: none;
+  }
 }
 
 .bgImageWrap {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
   left: 0;
+  top: 0;
+
+  height: 100%;
+  width: 100%;
   z-index: -1;
 }
 
 .bgImage {
-  width: 100%;
   height: 100%;
+  width: 100%;
+}
+
+.linkArrow {
+  margin-left: auto;
 }

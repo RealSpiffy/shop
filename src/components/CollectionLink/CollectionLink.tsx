@@ -14,18 +14,42 @@ export const CollectionLink = ({
   label,
   background,
 }: StorybookDemoProps) => {
-  return (
-    <div className={clsx(styles.outer, !background && styles.default)}>
+  //main content
+  const content = (
+    <>
       <div>{label}</div>
-      <div className={styles.bgImageWrap}>
-        {/* disabled warning to use next/image just for this file... */}
-        <img
-          src={background.src}
-          alt={background.alt}
-          className={styles.bgImage}
-        />
-      </div>
-      {href && <Link href={href} className={styles.link}>{`>`}</Link>}
-    </div>
+      {background.src && (
+        <div className={styles.bgImageWrap}>
+          {/* disabled warning to use next/image just for this file... */}
+          <img
+            src={background.src}
+            alt={background.alt}
+            className={styles.bgImage}
+          />
+        </div>
+      )}
+    </>
+  );
+  return (
+    // swap outer wrapper between <a> and <div> dependant on if link is present
+    <>
+      {href ? (
+        <Link
+          href={href}
+          className={clsx(
+            styles.outer,
+            background.src && styles.overlay,
+            styles.link
+          )}
+        >
+          {content}
+          <span className={styles.linkArrow}>{`>`}</span>
+        </Link>
+      ) : (
+        <div className={clsx(styles.outer, background.src && styles.overlay)}>
+          {content}
+        </div>
+      )}
+    </>
   );
 };
