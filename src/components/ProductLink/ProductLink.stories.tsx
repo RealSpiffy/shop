@@ -8,11 +8,11 @@ export default {
   argTypes: {
     href: { control: "text", default: "" },
     label: { control: "text", default: "" },
-    image: { control: "text", default: "" },
-    revealImage: { control: "text", default: "" },
-    price: { control: "number", default: "" },
-    compareAtPrice: { control: "number", default: "" },
-    unavailable: { control: "boolean", default: "false" },
+    image: { control: "object", default: undefined },
+    revealImage: { control: "object", default: undefined },
+    price: { control: "number", default: undefined },
+    compareAtPrice: { control: "number", default: undefined },
+    unavailable: { control: "boolean", default: false },
   },
 } as ComponentMeta<typeof ProductLink>;
 
@@ -20,76 +20,62 @@ const Template: ComponentStory<typeof ProductLink> = (args) => (
   <ProductLink {...args} />
 );
 
-// const handleHover = (e: React.MouseEvent<HTMLButtonElement>) => {
-//   console.log("Hover", e.target);
-// };
-
 export const Default = Template.bind({});
 Default.args = {
   href: "/productLink",
-  label: "Grey Hoodie",
+  label: "Product Label",
   image: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw3409b153/1_front_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/200/300",
   },
   revealImage: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw1854abfe/2_side_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/id/237/200/300",
   },
   price: 52,
-  compareAtPrice: 52,
-  unavailable: false,
 };
 
 export const SalePrice = Template.bind({});
 SalePrice.args = {
   href: "/productLink",
-  label: "Grey Hoodie",
+  label: "Product Label",
   image: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw3409b153/1_front_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/200/300",
   },
   revealImage: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw1854abfe/2_side_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/id/237/200/300",
   },
   price: 52,
   compareAtPrice: 87,
-  unavailable: false,
 };
 
 export const Unavailable = Template.bind({});
 Unavailable.args = {
   href: "/productLink",
-  label: "Grey Hoodie",
+  label: "Product Label",
   image: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw3409b153/1_front_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/200/300",
   },
   revealImage: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw1854abfe/2_side_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/id/237/200/300",
   },
   price: 52,
-  compareAtPrice: 52,
+  compareAtPrice: 78,
   unavailable: true,
 };
 export const NoImage = Template.bind({});
 NoImage.args = {
   href: "/productLink",
-  label: "Grey Hoodie",
-  img: { src: "" },
-  revealImage: { src: "" },
+  label: "Product Label",
   price: 52,
   compareAtPrice: 52,
-  unavailable: false,
 };
 
 export const Upcoming = Template.bind({});
 Upcoming.args = {
-  href: "",
-  label: "Grey Hoodie",
+  label: "Product Label",
   image: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw3409b153/1_front_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/200/300",
   },
   revealImage: {
-    src: "https://www.forever21.com/dw/image/v2/BFKH_PRD/on/demandware.static/-/Sites-f21-master-catalog/default/dw1854abfe/2_side_750/00425541-01.jpg?sw=1000&sh=1500",
+    src: "https://picsum.photos/id/237/200/300",
   },
-  price: "",
-  compareAtPrice: "",
-  Unavailable: "",
 };
