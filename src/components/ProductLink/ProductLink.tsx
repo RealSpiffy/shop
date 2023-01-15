@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import styles from "./styles.module.scss";
-
+import Link from "next/link";
 interface ProductLinkProps {
   href?: string;
   label: string;
@@ -20,13 +20,12 @@ export const ProductLink = ({
   compareAtPrice,
   unavailable,
 }: ProductLinkProps) => {
-  return (
+  const isOnSale = compareAtPrice && price < compareAtPrice;
+
+  const content = (
     <div
-      className={`${styles.productWrapper} ${
-        unavailable ? styles.unavailable : null
-      }`}
+      className={clsx(styles.productWrapper, unavailable && styles.unavailable)}
     >
-      {/* for cases where revealImage not available, on hover.. want image to stay the same?  */}
       <div className={styles.imgWrapper}>
         {image && (
           <img className={styles.productImg} src={image.src} alt={image.alt} />
@@ -39,22 +38,44 @@ export const ProductLink = ({
           />
         )}
       </div>
+
       <div className={styles.detailsContainer}>
-        <h5>{label}</h5>
+        <span className={styles.productLabel}>{label}</span>
 
         {href ? (
-          <p className={styles.priceContainer}>
-            <span className={price < compareAtPrice && styles.salePrice}>
-              ${price}
-            </span>
-            <span className={styles.prevPrice}>
-              {compareAtPrice && price < compareAtPrice && "$" + compareAtPrice}
-            </span>
+          <p className={styles.price}>
+            {isOnSale ? (
+              <div className={styles.priceContainer}>
+                <span className={styles.salePrice}>
+                  {new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(price)}
+                </span>
+                <span className={styles.compareAtPrice}>
+                  {new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(compareAtPrice)}
+                </span>
+              </div>
+            ) : (
+              <div>
+                <span>
+                  {price &&
+                    new Intl.NumberFormat("en-IN", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(price)}
+                </span>
+              </div>
+            )}
           </p>
         ) : (
-          <span>Coming Soon</span>
+          <p className={styles.comingSoon}>Coming Soon</p>
         )}
       </div>
     </div>
   );
+  return href ? <Link href={href}>{content}</Link> : content;
 };

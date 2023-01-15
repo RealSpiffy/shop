@@ -7,6 +7,7 @@
 .unavailable {
   opacity: 0.5;
 }
+
 .priceContainer {
   display: flex;
   gap: 0.25rem;
@@ -15,7 +16,7 @@
   color: red;
 }
 
-.prevPrice {
+.compareAtPrice {
   text-decoration: line-through;
 }
 
@@ -30,22 +31,21 @@
 .revealImg {
   width: 100%;
   position: absolute;
-  aspect-ratio: 3/4;
+  height: 100%;
 }
 
 .revealImg {
   display: none;
 }
 
-.imgWrapper:hover .revealImg {
+.productWrapper:hover .revealImg {
   display: block;
   z-index: 1;
 }
 
-.detailsContainer {
-  h5 {
-    font-size: 1rem;
-    padding: 0.75rem 0;
-    font-weight: 400;
-  }
+.productLabel,
+.price,
+.comingSoon {
+  display: block;
+  margin-top: 20px;
 }
