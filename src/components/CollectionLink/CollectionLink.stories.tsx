@@ -25,12 +25,14 @@ const Template: ComponentStory<typeof CollectionLink> = (args) => (
   <CollectionLink {...args} />
 );
 
+const placeholderBg = {
+  src: "https://picsum.photos/id/14/200/200",
+  alt: "collection 1",
+};
+
 export const Default = Template.bind({});
 Default.args = {
-  background: {
-    src: "https://picsum.photos/id/14/200/200",
-    alt: "collection 1",
-  },
+  background: placeholderBg,
   label: "Collection",
   href: "/collection",
 };
@@ -43,6 +45,6 @@ NoBackground.args = {
 
 export const NoHref = Template.bind({});
 NoHref.args = {
-  background: { src: "https://picsum.photos/id/14/200/200", alt: "upcoming" },
+  background: placeholderBg,
   label: "Upcoming (no link provided)",
 };
