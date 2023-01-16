@@ -1,0 +1,46 @@
+.outer {
+  background: grey;
+  color: black;
+  display: block;
+  font-size: 1.2em;
+  height: 200px;
+  padding: 1em;
+  position: relative;
+  text-decoration: none;
+  width: 200px;
+
+  &.hasBackground {
+    color: white;
+  }
+}
+
+.bgImageWrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.bgImage {
+  height: 100%;
+  width: 100%;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.label {
+  position: relative;
+}
+
+.linkArrow {
+  color: inherit;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
