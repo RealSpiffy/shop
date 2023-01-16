@@ -14,32 +14,32 @@ export const CollectionLink = ({
   label,
   background,
 }: StorybookDemoProps) => {
+  const hasBackground = !!background;
+
+  const outerStyles = clsx(styles.outer, hasBackground && styles.hasBackground);
+
   const content = (
     <>
-      <div>{label}</div>
-      {background && (
-        <div className={styles.bgImageWrap}>
+      {hasBackground && (
+        <div className={clsx(styles.bgImageWrap)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={background.src}
             alt={background.alt}
             className={styles.bgImage}
           />
+          <span className={styles.overlay}></span>
         </div>
       )}
+      <div className={styles.label}>{label}</div>
     </>
   );
   return href ? (
-    <Link
-      href={href}
-      className={clsx(styles.outer, background && styles.overlay, styles.link)}
-    >
+    <Link href={href} className={outerStyles}>
       {content}
       <span className={styles.linkArrow}>{<HiChevronRight />}</span>
     </Link>
   ) : (
-    <div className={clsx(styles.outer, background && styles.overlay)}>
-      {content}
-    </div>
+    <div className={outerStyles}>{content}</div>
   );
 };

@@ -1,25 +1,16 @@
 .outer {
-  background: #dddddd;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background: grey;
   color: black;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
+  display: block;
   font-size: 1.2em;
   height: 200px;
-  padding: 0.5em 1.5em;
+  padding: 1em;
   position: relative;
+  text-decoration: none;
   width: 200px;
 
-  &.overlay {
+  &.hasBackground {
     color: white;
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  &.link {
-    text-decoration: none;
   }
 }
 
@@ -27,10 +18,6 @@
   position: absolute;
   left: 0;
   top: 0;
-
-  height: 100%;
-  width: 100%;
-  z-index: -1;
 }
 
 .bgImage {
@@ -38,6 +25,22 @@
   width: 100%;
 }
 
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.label {
+  position: relative;
+}
+
 .linkArrow {
-  margin-left: auto;
+  color: inherit;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
 }
