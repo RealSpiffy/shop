@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
+import { HiChevronRight } from "react-icons/hi";
 import styles from "./styles.module.scss";
 
 interface StorybookDemoProps {
@@ -34,7 +35,7 @@ export const CollectionLink = ({
       className={clsx(styles.outer, background && styles.overlay, styles.link)}
     >
       {content}
-      <span className={styles.linkArrow}>{`>`}</span>
+      <span className={styles.linkArrow}>{<HiChevronRight />}</span>
     </Link>
   ) : (
     <div className={clsx(styles.outer, background && styles.overlay)}>
