@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import clsx from "clsx";
 import Link from "next/link";
 import styles from "./styles.module.scss";
@@ -14,13 +13,12 @@ export const CollectionLink = ({
   label,
   background,
 }: StorybookDemoProps) => {
-  //main content
   const content = (
     <>
       <div>{label}</div>
       {background && (
         <div className={styles.bgImageWrap}>
-          {/* disabled warning to use next/image just for this file... */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={background.src}
             alt={background.alt}
@@ -30,26 +28,17 @@ export const CollectionLink = ({
       )}
     </>
   );
-  return (
-    // swap outer wrapper between <a> and <div> dependant on if link is present
-    <>
-      {href ? (
-        <Link
-          href={href}
-          className={clsx(
-            styles.outer,
-            background && styles.overlay,
-            styles.link
-          )}
-        >
-          {content}
-          <span className={styles.linkArrow}>{`>`}</span>
-        </Link>
-      ) : (
-        <div className={clsx(styles.outer, background && styles.overlay)}>
-          {content}
-        </div>
-      )}
-    </>
+  return href ? (
+    <Link
+      href={href}
+      className={clsx(styles.outer, background && styles.overlay, styles.link)}
+    >
+      {content}
+      <span className={styles.linkArrow}>{`>`}</span>
+    </Link>
+  ) : (
+    <div className={clsx(styles.outer, background && styles.overlay)}>
+      {content}
+    </div>
   );
 };
