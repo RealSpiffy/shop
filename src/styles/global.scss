@@ -1,8 +1,23 @@
 :root {
-  --font-display: Arial, sans-serif;
-  --font-text: "Times New Roman", serif;
-  --font-accent: "Courier New", monospace;
-  --color-tan: #dfcdb2;
+  --font-title: "Syne", sans-serif;
+  --font-body: "Nunito Sans", sans-serif;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #d4d4d4;
+  --color-neutral-300: #404040;
+  --color-neutral-400: #171717;
+  --color-text: var(--color-neutral-400);
+  --color-bg-primary: var(--color-neutral-100);
+  --color-bg-secondary: var(--color-neutral-200);
+  --color-semantic-success: #166534;
+  --color-semantic-error: #b91c1c;
+
+  @media (prefers-color-scheme: dark) {
+    --color-text: var(--color-neutral-100);
+    --color-bg-primary: var(--color-neutral-400);
+    --color-bg-secondary: var(--color-neutral-300);
+    --color-semantic-success: #16a34a;
+    --color-semantic-error: #ef4444;
+  }
 }
 
 *,
@@ -20,10 +35,16 @@ body {
   height: 100%;
 }
 
+html {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text);
+}
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--font-text);
+  font-family: var(--font-body);
+  font-size: 100%;
 }
 
 img,
@@ -40,6 +61,10 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+a {
+  color: inherit;
 }
 
 #__next {

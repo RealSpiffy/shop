@@ -1,9 +1,9 @@
 @use "mixins" as m;
 
 .outer {
-  font-family: var(--font-display);
-  background-color: #ffff00;
-  border-bottom: 1px #000 solid;
+  color: var(--color-neutral-100);
+  background-color: var(--color-neutral-300);
+  border-bottom: 1px currentColor solid;
   padding-bottom: 8px;
   padding-top: 8px;
 }
