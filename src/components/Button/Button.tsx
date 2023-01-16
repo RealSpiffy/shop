@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from "./styles.module.scss";
+import styles from "./Button.module.scss";
 
 interface ButtonProps {
   label: string;
