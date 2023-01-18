@@ -8,15 +8,15 @@ export interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
   const year = new Date().getFullYear();
 
-  const content = linkGroups.map((section, i) => {
+  const content = linkGroups.map((group) => {
     return (
-      <div key={section.label} className={styles.category}>
-        <h2 className={styles.categoryLabel}>{section.label}</h2>
-        <ul key={i} className={styles.categoryList}>
-          {section.links &&
-            section.links.map((x, i) => {
+      <div key={group.label} className={styles.category}>
+        <h2 className={styles.categoryLabel}>{group.label}</h2>
+        <ul key={group.label} className={styles.categoryList}>
+          {group.links &&
+            group.links.map((x, i) => {
               return (
-                <li key={i} className={styles.categoryItem}>
+                <li key={x.href + i} className={styles.categoryItem}>
                   <a href={x.href} className={styles.link}>
                     {x.label}
                   </a>
@@ -32,11 +32,12 @@ export const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
     <footer className={styles.outer}>
       <div className={styles.inner}>
         <div className={styles.content}>{content}</div>
-        <form className={styles.formWrap}>
+
+        <form className={styles.formContainer}>
           <label htmlFor="email" className={styles.categoryLabel}>
             Newsletter
           </label>
-          <div className={styles.form}>
+          <div className={styles.formWrap}>
             <input
               type="email"
               id="email"
