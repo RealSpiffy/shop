@@ -1,0 +1,180 @@
+export const collections = [
+  {
+    id: "gid://shopify/Collection/434078449949",
+    handle: "shoes",
+    description: "",
+    descriptionHtml: "",
+    updatedAt: "2023-01-18T20:49:40Z",
+    title: "Shoes",
+    image: {
+      id: "gid://shopify/CollectionImage/1734596231453",
+      src: "https://cdn.shopify.com/s/files/1/0694/5013/7885/collections/collection_shoes.jpg?v=1674074980",
+      altText: "Various shoes aligned against a wall",
+      type: {
+        name: "Image",
+        kind: "OBJECT",
+        fieldBaseTypes: {
+          altText: "String",
+          height: "Int",
+          id: "ID",
+          url: "URL",
+          width: "Int",
+        },
+        implementsNode: false,
+      },
+    },
+    type: {
+      name: "Collection",
+      kind: "OBJECT",
+      fieldBaseTypes: {
+        description: "String",
+        descriptionHtml: "HTML",
+        handle: "String",
+        id: "ID",
+        image: "Image",
+        products: "ProductConnection",
+        title: "String",
+        updatedAt: "DateTime",
+      },
+      implementsNode: true,
+    },
+    hasNextPage: {
+      value: true,
+    },
+    hasPreviousPage: {
+      value: true,
+    },
+    variableValues: {
+      first: 20,
+    },
+  },
+  {
+    id: "gid://shopify/Collection/434078515485",
+    handle: "sweats",
+    description: "",
+    descriptionHtml: "",
+    updatedAt: "2023-01-18T20:49:06Z",
+    title: "Sweats",
+    image: {
+      id: "gid://shopify/CollectionImage/1734596198685",
+      src: "https://cdn.shopify.com/s/files/1/0694/5013/7885/collections/collection_sweats.jpg?v=1674074946",
+      altText: "Four sweaters hanging on a clothing rack",
+      type: {
+        name: "Image",
+        kind: "OBJECT",
+        fieldBaseTypes: {
+          altText: "String",
+          height: "Int",
+          id: "ID",
+          url: "URL",
+          width: "Int",
+        },
+        implementsNode: false,
+      },
+    },
+    type: {
+      name: "Collection",
+      kind: "OBJECT",
+      fieldBaseTypes: {
+        description: "String",
+        descriptionHtml: "HTML",
+        handle: "String",
+        id: "ID",
+        image: "Image",
+        products: "ProductConnection",
+        title: "String",
+        updatedAt: "DateTime",
+      },
+      implementsNode: true,
+    },
+    hasNextPage: {
+      value: true,
+    },
+    hasPreviousPage: {
+      value: true,
+    },
+    variableValues: {
+      first: 20,
+    },
+  },
+  {
+    id: "gid://shopify/Collection/434078777629",
+    handle: "accessories",
+    description: "",
+    descriptionHtml: "",
+    updatedAt: "2023-01-18T20:48:22Z",
+    title: "Accessories",
+    image: {
+      id: "gid://shopify/CollectionImage/1734596165917",
+      src: "https://cdn.shopify.com/s/files/1/0694/5013/7885/collections/collection_accessories.jpg?v=1674074902",
+      altText: "Accessories surrounding a black backpack",
+      type: {
+        name: "Image",
+        kind: "OBJECT",
+        fieldBaseTypes: {
+          altText: "String",
+          height: "Int",
+          id: "ID",
+          url: "URL",
+          width: "Int",
+        },
+        implementsNode: false,
+      },
+    },
+    type: {
+      name: "Collection",
+      kind: "OBJECT",
+      fieldBaseTypes: {
+        description: "String",
+        descriptionHtml: "HTML",
+        handle: "String",
+        id: "ID",
+        image: "Image",
+        products: "ProductConnection",
+        title: "String",
+        updatedAt: "DateTime",
+      },
+      implementsNode: true,
+    },
+    hasNextPage: false,
+    hasPreviousPage: {
+      value: true,
+    },
+    variableValues: {
+      first: 20,
+    },
+  },
+  {
+    id: "gid://shopify/Collection/433249419549",
+    handle: "sale",
+    description:
+      "Who doesn't love a good deal? Here you'll find a wide variety of products at discounted prices. Browse our selection and grab a bargain today. Don't miss out on these limited time offers.",
+    descriptionHtml:
+      '<meta charset="utf-8">\n<div class="w-full border-b border-black/10 dark:border-gray-900/50 text-gray-800 dark:text-gray-100 group bg-gray-50 dark:bg-[#444654]" data-mce-fragment="1">\n<div class="text-base gap-4 md:gap-6 m-auto md:max-w-2xl lg:max-w-2xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0" data-mce-fragment="1">\n<div class="relative flex w-[calc(100%-50px)] md:flex-col lg:w-[calc(100%-115px)]" data-mce-fragment="1">\n<div class="flex flex-grow flex-col gap-3" data-mce-fragment="1">\n<div class="min-h-[20px] flex flex-col items-start gap-4 whitespace-pre-wrap" data-mce-fragment="1">\n<div class="markdown prose w-full break-words dark:prose-invert light" data-mce-fragment="1">\n<p data-mce-fragment="1">Who doesn\'t love a good deal? Here you\'ll find a wide variety of products at discounted prices. Browse our selection and grab a bargain today. Don\'t miss out on these limited time offers.</p>\n</div>\n</div>\n</div>\n<div class="text-gray-400 flex self-end lg:self-center justify-center mt-2 gap-4 lg:gap-1 lg:absolute lg:top-0 lg:translate-x-full lg:right-0 lg:mt-0 lg:pl-2 visible" data-mce-fragment="1"></div>\n</div>\n</div>\n</div>',
+    updatedAt: "2023-01-17T23:47:22Z",
+    title: "Sale",
+    image: null,
+    type: {
+      name: "Collection",
+      kind: "OBJECT",
+      fieldBaseTypes: {
+        description: "String",
+        descriptionHtml: "HTML",
+        handle: "String",
+        id: "ID",
+        image: "Image",
+        products: "ProductConnection",
+        title: "String",
+        updatedAt: "DateTime",
+      },
+      implementsNode: true,
+    },
+    hasNextPage: {
+      value: true,
+    },
+    hasPreviousPage: false,
+    variableValues: {
+      first: 20,
+    },
+  },
+];
