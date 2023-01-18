@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HiChevronRight } from "react-icons/hi";
 import styles from "./styles.module.scss";
 
-interface StorybookDemoProps {
+export interface CollectionLinkProps {
   href?: string;
   label: string;
   background?: { src: string; alt: string };
@@ -13,10 +13,13 @@ export const CollectionLink = ({
   href,
   label,
   background,
-}: StorybookDemoProps) => {
+}: CollectionLinkProps) => {
   const hasBackground = !!background;
 
-  const outerStyles = clsx(styles.outer, hasBackground && styles.hasBackground);
+  const outerClasses = clsx(
+    styles.outer,
+    hasBackground && styles.hasBackground
+  );
 
   const content = (
     <>
@@ -35,11 +38,11 @@ export const CollectionLink = ({
     </>
   );
   return href ? (
-    <Link href={href} className={outerStyles}>
+    <Link href={href} className={outerClasses}>
       {content}
       <span className={styles.linkArrow}>{<HiChevronRight />}</span>
     </Link>
   ) : (
-    <div className={outerStyles}>{content}</div>
+    <div className={outerClasses}>{content}</div>
   );
 };
