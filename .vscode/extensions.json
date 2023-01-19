@@ -2,6 +2,8 @@
   "recommendations": [
     "quicktype.quicktype",
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "graphql.vscode-graphql",
+    "graphql.vscode-graphql-syntax"
   ]
 }
