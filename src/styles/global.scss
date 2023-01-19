@@ -14,15 +14,15 @@
   --color-semantic-error: #b91c1c;
   --color-semantic-action: #c2410c;
 
-  @media (prefers-color-scheme: dark) {
-    --color-text-primary: var(--color-neutral-100);
-    --color-text-secondary: var(--color-neutral-200);
-    --color-bg-primary: var(--color-neutral-400);
-    --color-bg-secondary: var(--color-neutral-300);
-    --color-semantic-success: #16a34a;
-    --color-semantic-error: #ef4444;
-    --color-semantic-action: #f97316;
-  }
+  // @media (prefers-color-scheme: dark) {
+  //   --color-text-primary: var(--color-neutral-100);
+  //   --color-text-secondary: var(--color-neutral-200);
+  //   --color-bg-primary: var(--color-neutral-400);
+  //   --color-bg-secondary: var(--color-neutral-300);
+  //   --color-semantic-success: #16a34a;
+  //   --color-semantic-error: #ef4444;
+  //   --color-semantic-action: #f97316;
+  // }
 }
 
 *,
