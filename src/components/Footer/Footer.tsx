@@ -13,16 +13,15 @@ export const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
       <div key={group.label} className={styles.category}>
         <h2 className={styles.categoryLabel}>{group.label}</h2>
         <ul key={group.label} className={styles.categoryList}>
-          {group.links &&
-            group.links.map((x, i) => {
-              return (
-                <li key={x.href + i} className={styles.categoryItem}>
-                  <a href={x.href} className={styles.link}>
-                    {x.label}
-                  </a>
-                </li>
-              );
-            })}
+          {group.links.map((link) => {
+            return (
+              <li key={link.href + link.label} className={styles.categoryItem}>
+                <a href={link.href} className={styles.link}>
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
