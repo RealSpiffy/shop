@@ -1,11 +1,13 @@
 .productWrapper {
   width: 200px;
-}
-.productWrapper:hover {
-  opacity: 1;
-}
-.unavailable {
-  opacity: 0.5;
+
+  &.unavailable {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .salePrice {
