@@ -1,29 +1,11 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-
-function fetcher<TData, TVariables>(endpoint: string, requestInit: RequestInit, query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      ...requestInit,
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -6926,39 +6908,104 @@ export enum WeightUnit {
   Pounds = 'POUNDS'
 }
 
-export type ProductsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
+export type ImageFragment = { __typename?: 'Image', alt?: string | null, src: any };
+
+export type ProductFragment = { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } };
+
+export type MinPriceFragment = { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
+
+export type MaxPriceFragment = { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
+
+export type GetProductQueryVariables = Exact<{
+  handle: Scalars['String'];
+}>;
+
+
+export type GetProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } } | null };
+
+export type GetProductHandlesQueryVariables = Exact<{
+  first: Scalars['Int'];
   after?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type ProductsQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', id: string, handle: string, title: string } }> } };
+export type GetProductHandlesQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', handle: string } }> } };
 
-
-export const ProductsDocument = `
-    query Products($first: Int, $after: String) {
+export const MinPriceFragmentDoc = /*#__PURE__*/ gql`
+    fragment minPrice on ProductPriceRange {
+  value: minVariantPrice {
+    amount
+    currencyCode
+  }
+}
+    `;
+export const ImageFragmentDoc = /*#__PURE__*/ gql`
+    fragment image on Image {
+  alt: altText
+  src: url
+}
+    `;
+export const ProductFragmentDoc = /*#__PURE__*/ gql`
+    fragment product on Product {
+  id
+  handle
+  title
+  availableForSale
+  price: priceRange {
+    ...minPrice
+  }
+  compareAtPrice: compareAtPriceRange {
+    ...minPrice
+  }
+  images(first: 2) {
+    nodes {
+      ...image
+    }
+  }
+}
+    ${MinPriceFragmentDoc}
+${ImageFragmentDoc}`;
+export const MaxPriceFragmentDoc = /*#__PURE__*/ gql`
+    fragment maxPrice on ProductPriceRange {
+  value: maxVariantPrice {
+    amount
+    currencyCode
+  }
+}
+    `;
+export const GetProductDocument = /*#__PURE__*/ gql`
+    query GetProduct($handle: String!) {
+  product: productByHandle(handle: $handle) {
+    ...product
+  }
+}
+    ${ProductFragmentDoc}`;
+export const GetProductHandlesDocument = /*#__PURE__*/ gql`
+    query GetProductHandles($first: Int!, $after: String) {
   products(first: $first, after: $after) {
     edges {
       cursor
       node {
-        id
         handle
-        title
       }
     }
   }
 }
     `;
-export const useProductsQuery = <
-      TData = ProductsQuery,
-      TError = unknown
-    >(
-      dataSource: { endpoint: string, fetchParams?: RequestInit },
-      variables?: ProductsQueryVariables,
-      options?: UseQueryOptions<ProductsQuery, TError, TData>
-    ) =>
-    useQuery<ProductsQuery, TError, TData>(
-      variables === undefined ? ['Products'] : ['Products', variables],
-      fetcher<ProductsQuery, ProductsQueryVariables>(dataSource.endpoint, dataSource.fetchParams || {}, ProductsDocument, variables),
-      options
-    );
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    GetProduct(variables: GetProductQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductQuery>(GetProductDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProduct', 'query');
+    },
+    GetProductHandles(variables: GetProductHandlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductHandlesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductHandlesQuery>(GetProductHandlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProductHandles', 'query');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

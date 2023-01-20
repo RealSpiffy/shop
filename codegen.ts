@@ -3,14 +3,17 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 const config: CodegenConfig = {
   overwrite: true,
   schema: "./graphql-schema.json",
-  documents: "src/**/*.graphql",
+  documents: ["src/gql/fragments/**/*.graphql", "src/gql/queries/**/*.graphql"],
   generates: {
-    "src/__generated__/index.ts": {
+    "src/gql/index.ts": {
       plugins: [
         "typescript",
         "typescript-operations",
-        "typescript-react-query",
+        "typescript-graphql-request",
       ],
+      config: {
+        pureMagicComment: true,
+      },
     },
   },
 };

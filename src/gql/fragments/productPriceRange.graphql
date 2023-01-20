@@ -1,0 +1,13 @@
+fragment minPrice on ProductPriceRange {
+  value: minVariantPrice {
+    amount
+    currencyCode
+  }
+}
+
+fragment maxPrice on ProductPriceRange {
+  value: maxVariantPrice {
+    amount
+    currencyCode
+  }
+}

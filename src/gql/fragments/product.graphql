@@ -1,0 +1,17 @@
+fragment product on Product {
+  id
+  handle
+  title
+  availableForSale
+  price: priceRange {
+    ...minPrice
+  }
+  compareAtPrice: compareAtPriceRange {
+    ...minPrice
+  }
+  images(first: 2) {
+    nodes {
+      ...image
+    }
+  }
+}

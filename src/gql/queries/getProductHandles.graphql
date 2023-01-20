@@ -1,11 +1,9 @@
-query Products($first: Int, $after: String) {
+query GetProductHandles($first: Int!, $after: String) {
   products(first: $first, after: $after) {
     edges {
       cursor
       node {
-        id
         handle
-        title
       }
     }
   }
