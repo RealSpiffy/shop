@@ -8,12 +8,9 @@
   opacity: 0.5;
 }
 
-.priceContainer {
-  display: flex;
-  gap: 0.25rem;
-}
 .salePrice {
   color: red;
+  margin-right: 5px;
 }
 
 .compareAtPrice {

@@ -22,6 +22,13 @@ export const ProductLink = ({
 }: ProductLinkProps) => {
   const isOnSale = compareAtPrice && price < compareAtPrice;
 
+  const formatCurrency = (num: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(num);
+  };
+
   const content = (
     <div
       className={clsx(styles.productWrapper, unavailable && styles.unavailable)}
@@ -43,34 +50,16 @@ export const ProductLink = ({
         <span className={styles.productLabel}>{label}</span>
 
         {href ? (
-          <p className={styles.price}>
-            {isOnSale ? (
-              <div className={styles.priceContainer}>
-                <span className={styles.salePrice}>
-                  {new Intl.NumberFormat("en-IN", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(price)}
-                </span>
-                <span className={styles.compareAtPrice}>
-                  {new Intl.NumberFormat("en-IN", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(compareAtPrice)}
-                </span>
-              </div>
-            ) : (
-              <div>
-                <span>
-                  {price &&
-                    new Intl.NumberFormat("en-IN", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(price)}
-                </span>
-              </div>
-            )}
-          </p>
+          isOnSale ? (
+            <p className={styles.price}>
+              <span className={styles.salePrice}>{formatCurrency(price)}</span>
+              <span className={styles.compareAtPrice}>
+                {formatCurrency(compareAtPrice)}
+              </span>
+            </p>
+          ) : (
+            <p>{price && formatCurrency(price)}</p>
+          )
         ) : (
           <p className={styles.comingSoon}>Coming Soon</p>
         )}
