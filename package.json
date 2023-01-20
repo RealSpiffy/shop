@@ -1,22 +1,13 @@
 {
   "name": "shop",
   "version": "1.0.0",
-  "workspaces": [
-    "studio"
-  ],
   "scripts": {
-    "start": "concurrently \"npm run start:web\" \"npm run start:sanity\"",
-    "dev": "concurrently \"npm run dev:web\" \"npm run dev:sanity\"",
-    "build": "npm run build:sanity && pwd && npm run build:web",
+    "start": "next start",
+    "dev": "next",
+    "build": "next build",
     "prepare": "husky install",
     "lint": "next lint",
     "compile": "tsc --noEmit",
-    "dev:web": "next",
-    "build:web": "next build",
-    "start:web": "next start",
-    "dev:sanity": "npm run dev --workspace=studio",
-    "build:sanity": "npm run build --workspace=studio",
-    "start:sanity": "npm run start --workspace=studio",
     "build:storybook": "build-storybook",
     "start:storybook": "start-storybook -p 6006",
     "test:unit": "jest --passWithNoTests",
@@ -24,16 +15,10 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@portabletext/react": "^2.0.0",
-    "@sanity/client": "^3.4.1",
-    "@sanity/image-url": "^1.0.1",
     "@tanstack/react-query": "^4.22.0",
     "clsx": "^1.2.1",
-    "cpy-cli": "^4.1.0",
-    "date-fns": "^2.28.0",
     "graphql": "^16.6.0",
     "next": "^13.1.0",
-    "next-sanity": "^3.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.25.3",
@@ -44,7 +29,6 @@
   "devDependencies": {
     "@babel/core": "^7.18.13",
     "@playwright/test": "^1.29.0",
-    "@sanity/cli": "^3.0.6",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",
     "@storybook/addon-interactions": "^6.5.15",
