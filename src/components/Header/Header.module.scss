@@ -1,1 +1,42 @@
+.wrapper {
+  border-bottom: 2px solid var(--color-neutral-400);
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 30px;
+}
 
+.logo {
+  font-size: 1.75rem;
+  font-family: var(--font-title);
+  font-weight: 800;
+}
+.links {
+  display: none;
+  text-transform: capitalize;
+  & .label {
+    text-decoration: none;
+    &.cta {
+      color: var(--color-semantic-error);
+    }
+  }
+}
+
+.btn {
+  background: transparent;
+  border: none;
+}
+@media (min-width: 768px) {
+  .menuBtn {
+    display: none;
+  }
+
+  .links,
+  .btnContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+  }
+}
