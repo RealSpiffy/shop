@@ -1,8 +1,13 @@
-import Client from "shopify-buy";
 import {
   GetCollectionsDocument,
   GetCollectionsQuery,
   GetCollectionsQueryVariables,
+  GetCollectionDocument,
+  GetCollectionQuery,
+  GetCollectionQueryVariables,
+  GetCollectionHandlesDocument,
+  GetCollectionHandlesQuery,
+  GetCollectionHandlesQueryVariables,
   GetProductDocument,
   GetProductQuery,
   GetProductQueryVariables,
@@ -14,14 +19,6 @@ import { client } from "./graphql";
 
 const COLLECTION_REQUEST_INCREMENT = 2;
 const PRODUCT_REQUEST_INCREMENT = 10;
-
-export const shopifyClient = Client.buildClient({
-  storefrontAccessToken:
-    process.env.NEXT_PUBLIC_SHOPIFY_STORE_FRONT_ACCESS_TOKEN,
-  domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
-});
-
-export const parseResponse = (response) => JSON.parse(JSON.stringify(response));
 
 /**
  * Fetches all product handles in incremental requests
@@ -57,6 +54,7 @@ export const fetchAllProductHandles: () => Promise<string[]> = async () => {
   return handles;
 };
 
+export type ProductDetailType = GetProductQuery["product"];
 /**
  * Returns product by handle
  * @param handle string
@@ -64,9 +62,12 @@ export const fetchAllProductHandles: () => Promise<string[]> = async () => {
  */
 export const fetchProduct: (
   handle: string
-) => Promise<GetProductQuery["product"]> = async (handle) => {
+) => Promise<ProductDetailType> = async (handle) => {
   const queryVariables: GetProductQueryVariables = { handle };
-  const { product } = await client.request(GetProductDocument, queryVariables);
+  const { product }: GetProductQuery = await client.request(
+    GetProductDocument,
+    queryVariables
+  );
   return product;
 };
 
@@ -115,18 +116,18 @@ export const fetchAllCollections: () => Promise<CollectionListingType> =
 export const fetchAllCollectionHandles: () => Promise<string[]> = async () => {
   let handles: string[];
 
-  const queryVariables: GetProductHandlesQueryVariables = {
+  const queryVariables: GetCollectionHandlesQueryVariables = {
     first: COLLECTION_REQUEST_INCREMENT,
     after: undefined,
   };
   let shouldRequest = true;
 
   while (shouldRequest) {
-    const res: GetProductHandlesQuery = await client.request(
-      GetProductHandlesDocument,
+    const res: GetCollectionHandlesQuery = await client.request(
+      GetCollectionHandlesDocument,
       queryVariables
     );
-    const { edges } = res.products;
+    const { edges } = res.collections;
 
     if (edges.length) {
       // Append new handles
@@ -142,7 +143,19 @@ export const fetchAllCollectionHandles: () => Promise<string[]> = async () => {
   return handles;
 };
 
+// TODO: format/flatten products
+export type CollectionDetailType = GetCollectionQuery["collection"];
 export const fetchCollection: (
   handle: string
-) => Promise<ShopifyBuy.Collection> = async (handle) =>
-  await shopifyClient.collection.fetchByHandle(handle).then(parseResponse);
+) => Promise<CollectionDetailType> = async (handle) => {
+  const queryVariables: GetCollectionQueryVariables = {
+    handle,
+    productsFirst: PRODUCT_REQUEST_INCREMENT,
+    imagesFirst: 2,
+  };
+  const { collection } = await client.request(
+    GetCollectionDocument,
+    queryVariables
+  );
+  return collection;
+};
