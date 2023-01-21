@@ -2,7 +2,7 @@ import { ShopifyLink } from "@/components/Link";
 import { CollectionListingType } from "@/lib/shopify";
 
 type PageProps = {
-  collections: CollectionListingType[];
+  collections: CollectionListingType;
 };
 
 export const Homepage = ({ collections }: PageProps) => {

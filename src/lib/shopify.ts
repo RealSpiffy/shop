@@ -71,40 +71,42 @@ export const fetchProduct: (
 };
 
 export type CollectionListingType =
-  GetCollectionsQuery["collections"]["edges"][0]["node"];
+  GetCollectionsQuery["collections"]["edges"][0]["node"][];
 
-export const fetchAllCollections: () => Promise<
-  CollectionListingType[]
-> = async () => {
-  let collections: CollectionListingType[];
+export const fetchAllCollections: () => Promise<CollectionListingType> =
+  async () => {
+    let collections: CollectionListingType;
 
-  const queryVariables: GetCollectionsQueryVariables = {
-    first: COLLECTION_REQUEST_INCREMENT,
-    after: undefined,
-  };
-  let shouldRequest = true;
+    const queryVariables: GetCollectionsQueryVariables = {
+      first: COLLECTION_REQUEST_INCREMENT,
+      after: undefined,
+    };
+    let shouldRequest = true;
 
-  while (shouldRequest) {
-    console.log("!@#");
-    const res: GetCollectionsQuery = await client.request(
-      GetCollectionsDocument,
-      queryVariables
-    );
-    const { edges } = res.collections;
+    while (shouldRequest) {
+      console.log("!@#");
+      const res: GetCollectionsQuery = await client.request(
+        GetCollectionsDocument,
+        queryVariables
+      );
+      const { edges } = res.collections;
 
-    if (edges.length) {
-      // Append new collections
-      collections = [...(collections ?? []), ...edges.map(({ node }) => node)];
-      // Update query variable to last cursor
-      queryVariables.after = edges[edges.length - 1].cursor;
+      if (edges.length) {
+        // Append new collections
+        collections = [
+          ...(collections ?? []),
+          ...edges.map(({ node }) => node),
+        ];
+        // Update query variable to last cursor
+        queryVariables.after = edges[edges.length - 1].cursor;
+      }
+
+      // Continue requests if there are remaining items
+      shouldRequest = edges.length === COLLECTION_REQUEST_INCREMENT;
     }
 
-    // Continue requests if there are remaining items
-    shouldRequest = edges.length === COLLECTION_REQUEST_INCREMENT;
-  }
-
-  return collections;
-};
+    return collections;
+  };
 
 /**
  * Fetches all collection handles in incremental requests
