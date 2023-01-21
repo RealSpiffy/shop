@@ -1,5 +1,8 @@
 import Client from "shopify-buy";
 import {
+  GetCollectionsDocument,
+  GetCollectionsQuery,
+  GetCollectionsQueryVariables,
   GetProductDocument,
   GetProductQuery,
   GetProductQueryVariables,
@@ -9,8 +12,8 @@ import {
 } from "@/gql";
 import { client } from "./graphql";
 
-const COLLECTION_REQUEST_INCREMENT = 10;
-const PRODUCT_REQUEST_INCREMENT = 4;
+const COLLECTION_REQUEST_INCREMENT = 2;
+const PRODUCT_REQUEST_INCREMENT = 10;
 
 export const shopifyClient = Client.buildClient({
   storefrontAccessToken:
@@ -67,9 +70,41 @@ export const fetchProduct: (
   return product;
 };
 
+export type CollectionListingType =
+  GetCollectionsQuery["collections"]["edges"][0]["node"];
+
 export const fetchAllCollections: () => Promise<
-  ShopifyBuy.Collection[]
-> = async () => await shopifyClient.collection.fetchAll().then(parseResponse);
+  CollectionListingType[]
+> = async () => {
+  let collections: CollectionListingType[];
+
+  const queryVariables: GetCollectionsQueryVariables = {
+    first: COLLECTION_REQUEST_INCREMENT,
+    after: undefined,
+  };
+  let shouldRequest = true;
+
+  while (shouldRequest) {
+    console.log("!@#");
+    const res: GetCollectionsQuery = await client.request(
+      GetCollectionsDocument,
+      queryVariables
+    );
+    const { edges } = res.collections;
+
+    if (edges.length) {
+      // Append new collections
+      collections = [...(collections ?? []), ...edges.map(({ node }) => node)];
+      // Update query variable to last cursor
+      queryVariables.after = edges[edges.length - 1].cursor;
+    }
+
+    // Continue requests if there are remaining items
+    shouldRequest = edges.length === COLLECTION_REQUEST_INCREMENT;
+  }
+
+  return collections;
+};
 
 /**
  * Fetches all collection handles in incremental requests
@@ -99,7 +134,7 @@ export const fetchAllCollectionHandles: () => Promise<string[]> = async () => {
     }
 
     // Continue requests if there are remaining items
-    shouldRequest = edges.length === PRODUCT_REQUEST_INCREMENT;
+    shouldRequest = edges.length === COLLECTION_REQUEST_INCREMENT;
   }
 
   return handles;

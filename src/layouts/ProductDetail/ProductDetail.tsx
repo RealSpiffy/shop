@@ -1,11 +1,9 @@
-import { fetchAllProductHandles } from "@/lib/shopify";
-
 type PageProps = {
+  // TODO: update
   product: ShopifyBuy.Product;
 };
 
 export const ProductDetail = ({ product }: PageProps) => {
-  fetchAllProductHandles();
   return (
     <>
       <h1>PDP: {product.title}</h1>

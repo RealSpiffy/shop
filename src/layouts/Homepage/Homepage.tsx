@@ -1,7 +1,8 @@
 import { ShopifyLink } from "@/components/Link";
+import { CollectionListingType } from "@/lib/shopify";
 
 type PageProps = {
-  collections: ShopifyBuy.Collection[];
+  collections: CollectionListingType[];
 };
 
 export const Homepage = ({ collections }: PageProps) => {
@@ -13,7 +14,9 @@ export const Homepage = ({ collections }: PageProps) => {
         <ul>
           {collections.map((collection) => (
             <li key={collection.handle}>
-              <ShopifyLink object={collection}>{collection.title}</ShopifyLink>
+              <ShopifyLink type="collection" handle={collection.handle}>
+                {collection.title}
+              </ShopifyLink>
             </li>
           ))}
         </ul>

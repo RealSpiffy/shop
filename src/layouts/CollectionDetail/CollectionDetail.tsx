@@ -11,7 +11,9 @@ export const CollectionDetail = ({ collection }: PageProps) => {
       <ul>
         {collection?.products.map((product) => (
           <li key={product.handle}>
-            <ShopifyLink object={product}>{product.title}</ShopifyLink>
+            <ShopifyLink type="product" handle={product.handle}>
+              {product.title}
+            </ShopifyLink>
           </li>
         ))}
       </ul>
