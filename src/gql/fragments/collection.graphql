@@ -1,0 +1,25 @@
+fragment collectionBaseFields on Collection {
+  id
+  handle
+}
+
+fragment collectionListingFields on Collection {
+  ...collectionBaseFields
+  title
+  image {
+    ...imageFields
+  }
+}
+
+fragment collectionDetailFields on Collection {
+  ...collectionListingFields
+  descriptionHtml
+  products(first: $productsFirst) {
+    edges {
+      cursor
+      node {
+        ...productListingFields
+      }
+    }
+  }
+}

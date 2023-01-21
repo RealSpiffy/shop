@@ -1,4 +1,4 @@
-fragment image on Image {
+fragment imageFields on Image {
   alt: altText
   src: url
 }

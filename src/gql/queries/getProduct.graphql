@@ -1,5 +1,5 @@
 query GetProduct($handle: String!) {
   product: productByHandle(handle: $handle) {
-    ...product
+    ...productDetailFields
   }
 }

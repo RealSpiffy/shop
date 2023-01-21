@@ -1,0 +1,5 @@
+query GetCollection($handle: String!) {
+  collection: collection(handle: $handle) {
+    ...product
+  }
+}

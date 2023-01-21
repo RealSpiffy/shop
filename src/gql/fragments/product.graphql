@@ -1,17 +1,31 @@
-fragment product on Product {
+fragment productBaseFields on Product {
   id
   handle
+}
+
+fragment productListingFields on Product {
+  ...productFields
   title
   availableForSale
   price: priceRange {
-    ...minPrice
+    ...minPriceFields
   }
   compareAtPrice: compareAtPriceRange {
-    ...minPrice
+    ...minPriceFields
   }
-  images(first: 2) {
+  images(first: $imagesFirst) {
     nodes {
-      ...image
+      ...imageFields
     }
   }
+}
+
+fragment productDetailFields on Product {
+  ...productListingFields
+  descriptionHtml
+  options(first: 3) {
+    name
+    values
+  }
+  # TODO: add variants
 }

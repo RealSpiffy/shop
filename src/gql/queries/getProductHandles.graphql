@@ -3,7 +3,7 @@ query GetProductHandles($first: Int!, $after: String) {
     edges {
       cursor
       node {
-        handle
+        ...productBaseFields
       }
     }
   }

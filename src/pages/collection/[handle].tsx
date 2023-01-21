@@ -1,6 +1,6 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { CollectionDetail } from "@/layouts/CollectionDetail";
-import { fetchAllCollections, fetchCollection } from "@/lib/shopify";
+import { fetchCollection, fetchAllCollectionHandles } from "@/lib/shopify";
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -15,8 +15,8 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = await fetchAllCollections();
-  const paths = collections.map(({ handle }) => ({
+  const collectionHandles = await fetchAllCollectionHandles();
+  const paths = collectionHandles.map((handle) => ({
     params: { handle },
   }));
   return { paths, fallback: false };

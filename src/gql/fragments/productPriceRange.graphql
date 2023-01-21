@@ -1,11 +1,11 @@
-fragment minPrice on ProductPriceRange {
+fragment minPriceFields on ProductPriceRange {
   value: minVariantPrice {
     amount
     currencyCode
   }
 }
 
-fragment maxPrice on ProductPriceRange {
+fragment maxPriceFields on ProductPriceRange {
   value: maxVariantPrice {
     amount
     currencyCode

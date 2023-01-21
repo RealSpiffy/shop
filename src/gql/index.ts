@@ -6908,9 +6908,9 @@ export enum WeightUnit {
   Pounds = 'POUNDS'
 }
 
-export type ImageFragment = { __typename?: 'Image', alt?: string | null, src: any };
-
 export type ProductFragment = { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } };
+
+export type ImageFragment = { __typename?: 'Image', alt?: string | null, src: any };
 
 export type MinPriceFragment = { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
 
@@ -6922,6 +6922,14 @@ export type GetProductQueryVariables = Exact<{
 
 
 export type GetProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } } | null };
+
+export type GetCollectionHandlesQueryVariables = Exact<{
+  first: Scalars['Int'];
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetCollectionHandlesQuery = { __typename?: 'QueryRoot', collections: { __typename?: 'CollectionConnection', edges: Array<{ __typename?: 'CollectionEdge', cursor: string, node: { __typename?: 'Collection', handle: string } }> } };
 
 export type GetProductHandlesQueryVariables = Exact<{
   first: Scalars['Int'];
@@ -6980,6 +6988,18 @@ export const GetProductDocument = /*#__PURE__*/ gql`
   }
 }
     ${ProductFragmentDoc}`;
+export const GetCollectionHandlesDocument = /*#__PURE__*/ gql`
+    query GetCollectionHandles($first: Int!, $after: String) {
+  collections(first: $first, after: $after) {
+    edges {
+      cursor
+      node {
+        handle
+      }
+    }
+  }
+}
+    `;
 export const GetProductHandlesDocument = /*#__PURE__*/ gql`
     query GetProductHandles($first: Int!, $after: String) {
   products(first: $first, after: $after) {
@@ -7002,6 +7022,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     GetProduct(variables: GetProductQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductQuery>(GetProductDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProduct', 'query');
+    },
+    GetCollectionHandles(variables: GetCollectionHandlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionHandlesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionHandlesQuery>(GetCollectionHandlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCollectionHandles', 'query');
     },
     GetProductHandles(variables: GetProductHandlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductHandlesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductHandlesQuery>(GetProductHandlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProductHandles', 'query');
