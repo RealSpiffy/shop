@@ -1,5 +1,9 @@
-query GetCollection($handle: String!) {
+query GetCollection(
+  $handle: String!
+  $productsFirst: Int!
+  $imagesFirst: Int = 2
+) {
   collection: collection(handle: $handle) {
-    ...product
+    ...collectionDetailFields
   }
 }

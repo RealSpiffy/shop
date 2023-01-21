@@ -4,7 +4,7 @@ fragment productBaseFields on Product {
 }
 
 fragment productListingFields on Product {
-  ...productFields
+  ...productBaseFields
   title
   availableForSale
   price: priceRange {

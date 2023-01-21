@@ -1,4 +1,4 @@
-query GetProduct($handle: String!) {
+query GetProduct($handle: String!, $imagesFirst: Int = 2) {
   product: productByHandle(handle: $handle) {
     ...productDetailFields
   }
