@@ -13,7 +13,8 @@
     "test:unit": "jest --passWithNoTests",
     "test:unit:watch": "jest --watch",
     "test:e2e": "playwright test",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:watch": "graphql-codegen --watch --config codegen.ts"
   },
   "dependencies": {
     "clsx": "^1.2.1",
