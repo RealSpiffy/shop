@@ -2,3 +2,12 @@ fragment imageFields on Image {
   alt: altText
   src: url
 }
+
+fragment imageConnectionFields on ImageConnection {
+  nodes {
+    ...imageFields
+  }
+  pageInfo {
+    ...pageInfoFields
+  }
+}

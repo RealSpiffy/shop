@@ -1,10 +1,10 @@
-query GetProductHandles($first: Int!, $after: String) {
-  products(first: $first, after: $after) {
-    edges {
-      cursor
-      node {
-        ...productBaseFields
-      }
+query GetProductHandles($count: Int!, $cursor: String) {
+  connection: products(first: $count, after: $cursor) {
+    nodes {
+      handle
+    }
+    pageInfo {
+      ...pageInfoFields
     }
   }
 }

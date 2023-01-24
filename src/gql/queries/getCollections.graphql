@@ -1,10 +1,10 @@
-query GetCollections($first: Int!, $after: String) {
-  collections(first: $first, after: $after) {
-    edges {
-      cursor
-      node {
-        ...collectionListingFields
-      }
+query GetCollections($count: Int!, $cursor: String) {
+  connection: collections(first: $count, after: $cursor) {
+    nodes {
+      ...collectionFields
+    }
+    pageInfo {
+      ...pageInfoFields
     }
   }
 }

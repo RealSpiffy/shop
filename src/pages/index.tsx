@@ -1,9 +1,9 @@
 import type { GetStaticProps } from "next";
 import { Homepage } from "@/layouts/Homepage";
-import { fetchAllCollections } from "@/lib/shopify";
+import { fetchCollections } from "@/lib/shopify";
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const collections = await fetchAllCollections();
+  const collections = await fetchCollections();
   return { props: { preview, collections } };
 };
 

@@ -1,10 +1,10 @@
-query GetCollectionHandles($first: Int!, $after: String) {
-  collections(first: $first, after: $after) {
-    edges {
-      cursor
-      node {
-        ...collectionBaseFields
-      }
+query GetCollectionHandles($count: Int!, $cursor: String) {
+  connection: collections(first: $count, after: $cursor) {
+    nodes {
+      handle
+    }
+    pageInfo {
+      ...pageInfoFields
     }
   }
 }

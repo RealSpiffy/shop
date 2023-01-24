@@ -1,0 +1,11 @@
+query GetCollectionProducts(
+  $handle: String!
+  $count: Int = 2
+  $cursor: String
+) {
+  collection(handle: $handle) {
+    connection: products(first: $count, after: $cursor) {
+      ...productConnectionFields
+    }
+  }
+}

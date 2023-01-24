@@ -1,7 +1,7 @@
-import { ProductDetailType } from "@/lib/shopify";
+import { ProductType } from "@/lib/shopify";
 
 type PageProps = {
-  product: ProductDetailType;
+  product: ProductType;
 };
 
 export const ProductDetail = ({ product }: PageProps) => {

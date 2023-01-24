@@ -1,12 +1,12 @@
 import { ShopifyLink } from "@/components/Link";
-import { CollectionDetailType } from "@/lib/shopify";
+import { CollectionType, ProductType } from "@/lib/shopify";
 
 type PageProps = {
-  collection: CollectionDetailType;
+  collection: CollectionType;
+  products: ProductType[];
 };
 
-export const CollectionDetail = ({ collection }: PageProps) => {
-  const products = collection.products.edges.map(({ node }) => node);
+export const CollectionDetail = ({ collection, products }: PageProps) => {
   return (
     <>
       <h1>PLP: {collection.title}</h1>

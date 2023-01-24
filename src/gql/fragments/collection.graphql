@@ -1,25 +1,18 @@
-fragment collectionBaseFields on Collection {
+fragment collectionFields on Collection {
   id
   handle
-}
-
-fragment collectionListingFields on Collection {
-  ...collectionBaseFields
   title
   image {
     ...imageFields
   }
+  descriptionHtml
 }
 
-fragment collectionDetailFields on Collection {
-  ...collectionListingFields
-  descriptionHtml
-  products(first: $productsFirst) {
-    edges {
-      cursor
-      node {
-        ...productListingFields
-      }
-    }
+fragment collectionConnectionFields on CollectionConnection {
+  nodes {
+    ...collectionFields
+  }
+  pageInfo {
+    ...pageInfoFields
   }
 }

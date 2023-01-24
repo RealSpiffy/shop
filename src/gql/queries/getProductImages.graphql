@@ -1,0 +1,7 @@
+query GetProductImages($handle: String!, $count: Int = 2, $cursor: String) {
+  product(handle: $handle) {
+    connection: images(first: $count, after: $cursor) {
+      ...imageConnectionFields
+    }
+  }
+}

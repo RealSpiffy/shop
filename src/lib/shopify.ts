@@ -1,161 +1,147 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  GetCollectionsDocument,
-  GetCollectionsQuery,
-  GetCollectionsQueryVariables,
-  GetCollectionDocument,
-  GetCollectionQuery,
-  GetCollectionQueryVariables,
-  GetCollectionHandlesDocument,
-  GetCollectionHandlesQuery,
-  GetCollectionHandlesQueryVariables,
-  GetProductDocument,
-  GetProductQuery,
-  GetProductQueryVariables,
-  GetProductHandlesDocument,
-  GetProductHandlesQuery,
-  GetProductHandlesQueryVariables,
+  CollectionFieldsFragment,
+  ImageFieldsFragment,
+  PageInfo,
+  ProductFieldsFragment,
+  getSdk,
 } from "@/gql";
 import { client } from "./graphql";
 
-const COLLECTION_REQUEST_INCREMENT = 2;
-const PRODUCT_REQUEST_INCREMENT = 10;
+const CONNECTION_REQUEST_INCREMENT = 10;
+
+export const SDK = getSdk(client);
+
+type ConnectionType<T> = {
+  nodes: T[];
+  pageInfo: PageInfo;
+};
+
+export type ImageType = ImageFieldsFragment;
+export type ProductType = ProductFieldsFragment & { images: ImageType[] };
+export type CollectionType = CollectionFieldsFragment;
+
+/**
+ * Exhaustive fetch all nodes for a connection request
+ * @param requestMethod request returning connection: { nodes, pageInfo }
+ * @param count
+ * @param reverse
+ * @returns
+ */
+async function fetchConnectionNodes<T>(
+  requestMethod: (...args: any[]) => Promise<{ connection: ConnectionType<T> }>
+): Promise<T[]> {
+  let accNodes: T[];
+
+  const queryVariables = {
+    count: CONNECTION_REQUEST_INCREMENT,
+    cursor: undefined,
+  };
+
+  let shouldRequest = true;
+
+  while (shouldRequest) {
+    const res = await requestMethod(queryVariables);
+    const { nodes, pageInfo } = res.connection;
+    const { hasNextPage, endCursor } = pageInfo;
+
+    // Append nodes
+    accNodes = [...(accNodes ?? []), ...nodes];
+    // Continue requests if there are remaining items
+    shouldRequest = hasNextPage;
+    queryVariables.cursor = endCursor;
+  }
+
+  return accNodes;
+}
 
 /**
  * Fetches all product handles in incremental requests
  * @returns string[]
  */
-export const fetchAllProductHandles: () => Promise<string[]> = async () => {
-  let handles: string[];
-
-  const queryVariables: GetProductHandlesQueryVariables = {
-    first: PRODUCT_REQUEST_INCREMENT,
-    after: undefined,
-  };
-  let shouldRequest = true;
-
-  while (shouldRequest) {
-    const res: GetProductHandlesQuery = await client.request(
-      GetProductHandlesDocument,
-      queryVariables
-    );
-    const { edges } = res.products;
-
-    if (edges.length) {
-      // Append new handles
-      handles = [...(handles ?? []), ...edges.map(({ node }) => node.handle)];
-      // Update query variable to last cursor
-      queryVariables.after = edges[edges.length - 1].cursor;
-    }
-
-    // Continue requests if there are remaining items
-    shouldRequest = edges.length === PRODUCT_REQUEST_INCREMENT;
-  }
-
+export const fetchProductHandles: () => Promise<string[]> = async () => {
+  const nodes = await fetchConnectionNodes(SDK.GetProductHandles);
+  const handles = nodes.map(({ handle }) => handle);
   return handles;
 };
 
-export type ProductDetailType = GetProductQuery["product"];
+export const fetchProductImages: (
+  handle: string
+) => Promise<ImageType[]> = async (handle) => {
+  const getProductImagesMethod = async (variables) =>
+    SDK.GetProductImages({ handle, ...variables }).then((res) => res.product);
+  const images = await fetchConnectionNodes(getProductImagesMethod);
+  return images;
+};
+
 /**
  * Returns product by handle
  * @param handle string
  * @returns product
  */
-export const fetchProduct: (
-  handle: string
-) => Promise<ProductDetailType> = async (handle) => {
-  const queryVariables: GetProductQueryVariables = { handle };
-  const { product }: GetProductQuery = await client.request(
-    GetProductDocument,
-    queryVariables
-  );
-  return product;
+export const fetchProduct: (handle: string) => Promise<ProductType> = async (
+  handle
+) => {
+  const { product } = await SDK.GetProduct({ handle });
+  // Fetch ImageConnections seperately
+  const images = await fetchProductImages(handle);
+  return { ...product, images };
 };
-
-export type CollectionListingType =
-  GetCollectionsQuery["collections"]["edges"][0]["node"][];
-
-export const fetchAllCollections: () => Promise<CollectionListingType> =
-  async () => {
-    let collections: CollectionListingType;
-
-    const queryVariables: GetCollectionsQueryVariables = {
-      first: COLLECTION_REQUEST_INCREMENT,
-      after: undefined,
-    };
-    let shouldRequest = true;
-
-    while (shouldRequest) {
-      console.log("!@#");
-      const res: GetCollectionsQuery = await client.request(
-        GetCollectionsDocument,
-        queryVariables
-      );
-      const { edges } = res.collections;
-
-      if (edges.length) {
-        // Append new collections
-        collections = [
-          ...(collections ?? []),
-          ...edges.map(({ node }) => node),
-        ];
-        // Update query variable to last cursor
-        queryVariables.after = edges[edges.length - 1].cursor;
-      }
-
-      // Continue requests if there are remaining items
-      shouldRequest = edges.length === COLLECTION_REQUEST_INCREMENT;
-    }
-
-    return collections;
-  };
 
 /**
  * Fetches all collection handles in incremental requests
  * @returns string[]
  */
-export const fetchAllCollectionHandles: () => Promise<string[]> = async () => {
-  let handles: string[];
-
-  const queryVariables: GetCollectionHandlesQueryVariables = {
-    first: COLLECTION_REQUEST_INCREMENT,
-    after: undefined,
-  };
-  let shouldRequest = true;
-
-  while (shouldRequest) {
-    const res: GetCollectionHandlesQuery = await client.request(
-      GetCollectionHandlesDocument,
-      queryVariables
-    );
-    const { edges } = res.collections;
-
-    if (edges.length) {
-      // Append new handles
-      handles = [...(handles ?? []), ...edges.map(({ node }) => node.handle)];
-      // Update query variable to last cursor
-      queryVariables.after = edges[edges.length - 1].cursor;
-    }
-
-    // Continue requests if there are remaining items
-    shouldRequest = edges.length === COLLECTION_REQUEST_INCREMENT;
-  }
-
+export const fetchCollectionHandles: () => Promise<string[]> = async () => {
+  const nodes = await fetchConnectionNodes(SDK.GetCollectionHandles);
+  const handles = nodes.map(({ handle }) => handle);
   return handles;
 };
 
-// TODO: format/flatten products
-export type CollectionDetailType = GetCollectionQuery["collection"];
+/**
+ * Fetch all collections
+ * @returns Promise<CollectionType[]>
+ */
+export const fetchCollections: () => Promise<CollectionType[]> = async () => {
+  const collections = await fetchConnectionNodes(SDK.GetCollections);
+  return collections;
+};
+
+/**
+ * Fetch all products (with images) in a collection
+ * @param handle collection handle
+ * @returns
+ */
+const fetchCollectionProducts: (
+  handle: string
+) => Promise<ProductType[]> = async (handle) => {
+  const getCollectionProductsMethod = async (variables) =>
+    SDK.GetCollectionProducts({ handle, ...variables }).then(
+      (res) => res.collection
+    );
+  const products = await fetchConnectionNodes(getCollectionProductsMethod);
+
+  // Fetch images seperately
+  const productsWithImages = await Promise.all(
+    products.map(async (product) => {
+      const images = await fetchProductImages(product.handle);
+      return { ...product, images };
+    })
+  );
+  return productsWithImages;
+};
+
+/**
+ * Fetch a collection by handle (with product data)
+ * @param handle
+ * @returns
+ */
 export const fetchCollection: (
   handle: string
-) => Promise<CollectionDetailType> = async (handle) => {
-  const queryVariables: GetCollectionQueryVariables = {
-    handle,
-    productsFirst: PRODUCT_REQUEST_INCREMENT,
-    imagesFirst: 2,
-  };
-  const { collection } = await client.request(
-    GetCollectionDocument,
-    queryVariables
-  );
-  return collection;
+) => Promise<{ collection: CollectionType; products: ProductType[] }> = async (
+  handle
+) => {
+  const { collection } = await SDK.GetCollection({ handle });
+  const products = await fetchCollectionProducts(handle);
+  return { collection, products };
 };

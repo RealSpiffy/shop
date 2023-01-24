@@ -6908,19 +6908,19 @@ export enum WeightUnit {
   Pounds = 'POUNDS'
 }
 
-export type CollectionBaseFieldsFragment = { __typename?: 'Collection', id: string, handle: string };
+export type CollectionFieldsFragment = { __typename?: 'Collection', id: string, handle: string, title: string, descriptionHtml: any, image?: { __typename?: 'Image', alt?: string | null, src: any } | null };
 
-export type CollectionListingFieldsFragment = { __typename?: 'Collection', title: string, id: string, handle: string, image?: { __typename?: 'Image', alt?: string | null, src: any } | null };
-
-export type CollectionDetailFieldsFragment = { __typename?: 'Collection', descriptionHtml: any, title: string, id: string, handle: string, products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', title: string, availableForSale: boolean, id: string, handle: string, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } } }> }, image?: { __typename?: 'Image', alt?: string | null, src: any } | null };
+export type CollectionConnectionFieldsFragment = { __typename?: 'CollectionConnection', nodes: Array<{ __typename?: 'Collection', id: string, handle: string, title: string, descriptionHtml: any, image?: { __typename?: 'Image', alt?: string | null, src: any } | null }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } };
 
 export type ImageFieldsFragment = { __typename?: 'Image', alt?: string | null, src: any };
 
-export type ProductBaseFieldsFragment = { __typename?: 'Product', id: string, handle: string };
+export type ImageConnectionFieldsFragment = { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } };
 
-export type ProductListingFieldsFragment = { __typename?: 'Product', title: string, availableForSale: boolean, id: string, handle: string, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } };
+export type PageInfoFieldsFragment = { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null };
 
-export type ProductDetailFieldsFragment = { __typename?: 'Product', descriptionHtml: any, title: string, availableForSale: boolean, id: string, handle: string, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } };
+export type ProductFieldsFragment = { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, descriptionHtml: any, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }> };
+
+export type ProductConnectionFieldsFragment = { __typename?: 'ProductConnection', nodes: Array<{ __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, descriptionHtml: any, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }> }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } };
 
 export type MinPriceFieldsFragment = { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } };
 
@@ -6928,73 +6928,107 @@ export type MaxPriceFieldsFragment = { __typename?: 'ProductPriceRange', value: 
 
 export type GetCollectionQueryVariables = Exact<{
   handle: Scalars['String'];
-  productsFirst: Scalars['Int'];
-  imagesFirst?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'QueryRoot', collection?: { __typename?: 'Collection', descriptionHtml: any, title: string, id: string, handle: string, products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', title: string, availableForSale: boolean, id: string, handle: string, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } } }> }, image?: { __typename?: 'Image', alt?: string | null, src: any } | null } | null };
+export type GetCollectionQuery = { __typename?: 'QueryRoot', collection?: { __typename?: 'Collection', id: string, handle: string, title: string, descriptionHtml: any, image?: { __typename?: 'Image', alt?: string | null, src: any } | null } | null };
 
 export type GetCollectionHandlesQueryVariables = Exact<{
-  first: Scalars['Int'];
-  after?: InputMaybe<Scalars['String']>;
+  count: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetCollectionHandlesQuery = { __typename?: 'QueryRoot', collections: { __typename?: 'CollectionConnection', edges: Array<{ __typename?: 'CollectionEdge', cursor: string, node: { __typename?: 'Collection', id: string, handle: string } }> } };
+export type GetCollectionHandlesQuery = { __typename?: 'QueryRoot', connection: { __typename?: 'CollectionConnection', nodes: Array<{ __typename?: 'Collection', handle: string }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } };
+
+export type GetCollectionProductsQueryVariables = Exact<{
+  handle: Scalars['String'];
+  count?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetCollectionProductsQuery = { __typename?: 'QueryRoot', collection?: { __typename?: 'Collection', connection: { __typename?: 'ProductConnection', nodes: Array<{ __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, descriptionHtml: any, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }> }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } } | null };
 
 export type GetCollectionsQueryVariables = Exact<{
-  first: Scalars['Int'];
-  after?: InputMaybe<Scalars['String']>;
+  count: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetCollectionsQuery = { __typename?: 'QueryRoot', collections: { __typename?: 'CollectionConnection', edges: Array<{ __typename?: 'CollectionEdge', cursor: string, node: { __typename?: 'Collection', title: string, id: string, handle: string, image?: { __typename?: 'Image', alt?: string | null, src: any } | null } }> } };
+export type GetCollectionsQuery = { __typename?: 'QueryRoot', connection: { __typename?: 'CollectionConnection', nodes: Array<{ __typename?: 'Collection', id: string, handle: string, title: string, descriptionHtml: any, image?: { __typename?: 'Image', alt?: string | null, src: any } | null }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } };
 
 export type GetProductQueryVariables = Exact<{
   handle: Scalars['String'];
-  imagesFirst?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type GetProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', descriptionHtml: any, title: string, availableForSale: boolean, id: string, handle: string, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }>, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }> } } | null };
+export type GetProductQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, descriptionHtml: any, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }> } | null };
 
 export type GetProductHandlesQueryVariables = Exact<{
-  first: Scalars['Int'];
-  after?: InputMaybe<Scalars['String']>;
+  count: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetProductHandlesQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', id: string, handle: string } }> } };
+export type GetProductHandlesQuery = { __typename?: 'QueryRoot', connection: { __typename?: 'ProductConnection', nodes: Array<{ __typename?: 'Product', handle: string }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } };
 
-export const CollectionBaseFieldsFragmentDoc = /*#__PURE__*/ gql`
-    fragment collectionBaseFields on Collection {
-  id
-  handle
-}
-    `;
+export type GetProductImagesQueryVariables = Exact<{
+  handle: Scalars['String'];
+  count?: InputMaybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetProductImagesQuery = { __typename?: 'QueryRoot', product?: { __typename?: 'Product', connection: { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } } | null };
+
 export const ImageFieldsFragmentDoc = /*#__PURE__*/ gql`
     fragment imageFields on Image {
   alt: altText
   src: url
 }
     `;
-export const CollectionListingFieldsFragmentDoc = /*#__PURE__*/ gql`
-    fragment collectionListingFields on Collection {
-  ...collectionBaseFields
+export const CollectionFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment collectionFields on Collection {
+  id
+  handle
   title
   image {
     ...imageFields
   }
+  descriptionHtml
 }
-    ${CollectionBaseFieldsFragmentDoc}
-${ImageFieldsFragmentDoc}`;
-export const ProductBaseFieldsFragmentDoc = /*#__PURE__*/ gql`
-    fragment productBaseFields on Product {
-  id
-  handle
+    ${ImageFieldsFragmentDoc}`;
+export const PageInfoFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment pageInfoFields on PageInfo {
+  hasNextPage
+  hasPreviousPage
+  startCursor
+  endCursor
 }
     `;
+export const CollectionConnectionFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment collectionConnectionFields on CollectionConnection {
+  nodes {
+    ...collectionFields
+  }
+  pageInfo {
+    ...pageInfoFields
+  }
+}
+    ${CollectionFieldsFragmentDoc}
+${PageInfoFieldsFragmentDoc}`;
+export const ImageConnectionFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment imageConnectionFields on ImageConnection {
+  nodes {
+    ...imageFields
+  }
+  pageInfo {
+    ...pageInfoFields
+  }
+}
+    ${ImageFieldsFragmentDoc}
+${PageInfoFieldsFragmentDoc}`;
 export const MinPriceFieldsFragmentDoc = /*#__PURE__*/ gql`
     fragment minPriceFields on ProductPriceRange {
   value: minVariantPrice {
@@ -7003,9 +7037,10 @@ export const MinPriceFieldsFragmentDoc = /*#__PURE__*/ gql`
   }
 }
     `;
-export const ProductListingFieldsFragmentDoc = /*#__PURE__*/ gql`
-    fragment productListingFields on Product {
-  ...productBaseFields
+export const ProductFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment productFields on Product {
+  id
+  handle
   title
   availableForSale
   price: priceRange {
@@ -7014,40 +7049,24 @@ export const ProductListingFieldsFragmentDoc = /*#__PURE__*/ gql`
   compareAtPrice: compareAtPriceRange {
     ...minPriceFields
   }
-  images(first: $imagesFirst) {
-    nodes {
-      ...imageFields
-    }
-  }
-}
-    ${ProductBaseFieldsFragmentDoc}
-${MinPriceFieldsFragmentDoc}
-${ImageFieldsFragmentDoc}`;
-export const CollectionDetailFieldsFragmentDoc = /*#__PURE__*/ gql`
-    fragment collectionDetailFields on Collection {
-  ...collectionListingFields
-  descriptionHtml
-  products(first: $productsFirst) {
-    edges {
-      cursor
-      node {
-        ...productListingFields
-      }
-    }
-  }
-}
-    ${CollectionListingFieldsFragmentDoc}
-${ProductListingFieldsFragmentDoc}`;
-export const ProductDetailFieldsFragmentDoc = /*#__PURE__*/ gql`
-    fragment productDetailFields on Product {
-  ...productListingFields
   descriptionHtml
   options(first: 3) {
     name
     values
   }
 }
-    ${ProductListingFieldsFragmentDoc}`;
+    ${MinPriceFieldsFragmentDoc}`;
+export const ProductConnectionFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment productConnectionFields on ProductConnection {
+  nodes {
+    ...productFields
+  }
+  pageInfo {
+    ...pageInfoFields
+  }
+}
+    ${ProductFieldsFragmentDoc}
+${PageInfoFieldsFragmentDoc}`;
 export const MaxPriceFieldsFragmentDoc = /*#__PURE__*/ gql`
     fragment maxPriceFields on ProductPriceRange {
   value: maxVariantPrice {
@@ -7057,55 +7076,74 @@ export const MaxPriceFieldsFragmentDoc = /*#__PURE__*/ gql`
 }
     `;
 export const GetCollectionDocument = /*#__PURE__*/ gql`
-    query GetCollection($handle: String!, $productsFirst: Int!, $imagesFirst: Int = 2) {
-  collection: collection(handle: $handle) {
-    ...collectionDetailFields
+    query GetCollection($handle: String!) {
+  collection(handle: $handle) {
+    ...collectionFields
   }
 }
-    ${CollectionDetailFieldsFragmentDoc}`;
+    ${CollectionFieldsFragmentDoc}`;
 export const GetCollectionHandlesDocument = /*#__PURE__*/ gql`
-    query GetCollectionHandles($first: Int!, $after: String) {
-  collections(first: $first, after: $after) {
-    edges {
-      cursor
-      node {
-        ...collectionBaseFields
-      }
+    query GetCollectionHandles($count: Int!, $cursor: String) {
+  connection: collections(first: $count, after: $cursor) {
+    nodes {
+      handle
+    }
+    pageInfo {
+      ...pageInfoFields
     }
   }
 }
-    ${CollectionBaseFieldsFragmentDoc}`;
+    ${PageInfoFieldsFragmentDoc}`;
+export const GetCollectionProductsDocument = /*#__PURE__*/ gql`
+    query GetCollectionProducts($handle: String!, $count: Int = 2, $cursor: String) {
+  collection(handle: $handle) {
+    connection: products(first: $count, after: $cursor) {
+      ...productConnectionFields
+    }
+  }
+}
+    ${ProductConnectionFieldsFragmentDoc}`;
 export const GetCollectionsDocument = /*#__PURE__*/ gql`
-    query GetCollections($first: Int!, $after: String) {
-  collections(first: $first, after: $after) {
-    edges {
-      cursor
-      node {
-        ...collectionListingFields
-      }
+    query GetCollections($count: Int!, $cursor: String) {
+  connection: collections(first: $count, after: $cursor) {
+    nodes {
+      ...collectionFields
+    }
+    pageInfo {
+      ...pageInfoFields
     }
   }
 }
-    ${CollectionListingFieldsFragmentDoc}`;
+    ${CollectionFieldsFragmentDoc}
+${PageInfoFieldsFragmentDoc}`;
 export const GetProductDocument = /*#__PURE__*/ gql`
-    query GetProduct($handle: String!, $imagesFirst: Int = 2) {
-  product: productByHandle(handle: $handle) {
-    ...productDetailFields
+    query GetProduct($handle: String!) {
+  product(handle: $handle) {
+    ...productFields
   }
 }
-    ${ProductDetailFieldsFragmentDoc}`;
+    ${ProductFieldsFragmentDoc}`;
 export const GetProductHandlesDocument = /*#__PURE__*/ gql`
-    query GetProductHandles($first: Int!, $after: String) {
-  products(first: $first, after: $after) {
-    edges {
-      cursor
-      node {
-        ...productBaseFields
-      }
+    query GetProductHandles($count: Int!, $cursor: String) {
+  connection: products(first: $count, after: $cursor) {
+    nodes {
+      handle
+    }
+    pageInfo {
+      ...pageInfoFields
     }
   }
 }
-    ${ProductBaseFieldsFragmentDoc}`;
+    ${PageInfoFieldsFragmentDoc}`;
+export const GetProductImagesDocument = /*#__PURE__*/ gql`
+    query GetProductImages($handle: String!, $count: Int = 2, $cursor: String) {
+  product(handle: $handle) {
+    connection: images(first: $count, after: $cursor) {
+      ...imageConnectionFields
+    }
+  }
+}
+    ${ImageConnectionFieldsFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -7120,6 +7158,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetCollectionHandles(variables: GetCollectionHandlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionHandlesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionHandlesQuery>(GetCollectionHandlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCollectionHandles', 'query');
     },
+    GetCollectionProducts(variables: GetCollectionProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionProductsQuery>(GetCollectionProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCollectionProducts', 'query');
+    },
     GetCollections(variables: GetCollectionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionsQuery>(GetCollectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCollections', 'query');
     },
@@ -7128,6 +7169,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetProductHandles(variables: GetProductHandlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductHandlesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductHandlesQuery>(GetProductHandlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProductHandles', 'query');
+    },
+    GetProductImages(variables: GetProductImagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductImagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductImagesQuery>(GetProductImagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProductImages', 'query');
     }
   };
 }
