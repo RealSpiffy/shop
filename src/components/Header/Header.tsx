@@ -1,4 +1,4 @@
-import MenuIcon from "@mui/icons-material/Menu";
+import { MdMenu } from "react-icons/md";
 import clsx from "clsx";
 import Link from "next/link";
 import styles from "./Header.module.scss";
@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
           className={clsx(styles.btn, styles.menuBtn)}
           onClick={() => console.log("open side bar")}
         >
-          <MenuIcon />
+          <MdMenu />
         </button>
 
         <div className={styles.logo}>Shop</div>

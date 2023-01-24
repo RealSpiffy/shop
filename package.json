@@ -24,11 +24,6 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@material-ui/icons": "^4.11.3",
-    "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.6",
     "@portabletext/react": "^2.0.0",
     "@sanity/client": "^3.4.1",
     "@sanity/image-url": "^1.0.1",
