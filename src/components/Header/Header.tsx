@@ -1,6 +1,6 @@
+import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
 import Link from "next/link";
-import { FaBars } from "react-icons/fa";
 import styles from "./Header.module.scss";
 
 export interface HeaderProps {
@@ -39,23 +39,25 @@ export const Header: React.FC<HeaderProps> = ({
           className={clsx(styles.btn, styles.menuBtn)}
           onClick={() => console.log("open side bar")}
         >
-          <FaBars />
+          <MenuIcon />
         </button>
 
         <div className={styles.logo}>Shop</div>
 
         <ul className={clsx(styles.links)}>{primaryContent}</ul>
 
-        <div className={styles.btnContainer}>
-          <ul className={clsx(styles.links)}>{secondaryContent}</ul>
-          <button
-            type="button"
-            className={clsx(styles.btn)}
-            onClick={() => console.log("cart")}
-          >
-            Cart: 0
-          </button>
-        </div>
+        <ul className={clsx(styles.linksContainer)}>
+          <li className={clsx(styles.links)}>{secondaryContent}</li>
+          <li>
+            <button
+              type="button"
+              className={clsx(styles.btn)}
+              onClick={() => console.log("cart")}
+            >
+              Cart: 0
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
   );

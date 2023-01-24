@@ -1,11 +1,11 @@
 .wrapper {
-  border-bottom: 2px solid var(--color-neutral-400);
+  border-bottom: 2px solid var(--color-text-primary);
 }
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 30px;
+  padding: 17px 11px;
 }
 
 .logo {
@@ -13,18 +13,28 @@
   font-family: var(--font-title);
   font-weight: 800;
 }
+
 .links {
   display: none;
-  text-transform: capitalize;
-  & .label {
-    text-decoration: none;
-    &.cta {
-      color: var(--color-semantic-error);
-    }
-  }
+  text-decoration: none;
+}
+
+.linksContainer {
+  padding: 0;
+}
+.linksContainer li {
+  list-style: none;
+}
+.label {
+  text-decoration: none;
+}
+
+.cta {
+  color: var(--color-semantic-action);
 }
 
 .btn {
+  padding: 0;
   background: transparent;
   border: none;
 }
@@ -33,8 +43,13 @@
     display: none;
   }
 
+  .navbar {
+    padding: 16px 40px;
+  }
+
   .links,
-  .btnContainer {
+  .linksContainer {
+    text-transform: capitalize;
     display: flex;
     gap: 20px;
     justify-content: space-evenly;
