@@ -1,6 +1,6 @@
 # Real Spiffy
 
-This is a homepage built with [Next.js](https://nextjs.org), [Sanity.io](https://www.sanity.io), and [Vercel](https://vercel.com).
+This is a homepage built with [Next.js](https://nextjs.org) and [Vercel](https://vercel.com).
 
 ### Running the front-end
 
@@ -13,9 +13,6 @@ npm install
 
 # Run the frontend
 npm run dev
-
-# Run the Studio
-npm run start:sanity
 ```
 
 The website will be running at `http://localhost:3000`, the Studio will run at `http://localhost:3333`.
