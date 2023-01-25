@@ -1,6 +1,6 @@
+import type { CollectionType, ProductType } from "./types";
 import { fetchProductImages } from "./product";
 import { SDK } from "./sdk";
-import type { CollectionType, ProductType } from "./types";
 import { fetchConnectionNodes } from "./util";
 
 /**

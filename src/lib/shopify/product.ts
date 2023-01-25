@@ -1,5 +1,5 @@
-import { SDK } from "./sdk";
 import type { ImageType, ProductType } from "./types";
+import { SDK } from "./sdk";
 import { fetchConnectionNodes } from "./util";
 
 /**
