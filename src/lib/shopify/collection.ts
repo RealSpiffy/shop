@@ -1,45 +1,45 @@
 import type { CollectionType, ProductType } from "./types";
-import { fetchProductImages } from "./product";
+import { getProductImages } from "./product";
 import { SDK } from "./sdk";
-import { fetchConnectionNodes } from "./util";
+import { getAllConnectionNodes } from "./util";
 
 /**
- * Fetches all collection handles in incremental requests
+ * Requests all collection handles in incremental requests
  * @returns handle array
  */
-export const fetchCollectionHandles: () => Promise<string[]> = async () => {
-  const nodes = await fetchConnectionNodes(SDK.GetCollectionHandles);
+export const getCollectionHandles: () => Promise<string[]> = async () => {
+  const nodes = await getAllConnectionNodes(SDK.GetCollectionHandles);
   const handles = nodes.map(({ handle }) => handle);
   return handles;
 };
 
 /**
- * Fetch all collections
+ * Requests all collections
  * @returns collection array
  */
-export const fetchCollections: () => Promise<CollectionType[]> = async () => {
-  const collections = await fetchConnectionNodes(SDK.GetCollections);
+export const getCollections: () => Promise<CollectionType[]> = async () => {
+  const collections = await getAllConnectionNodes(SDK.GetCollections);
   return collections;
 };
 
 /**
- * Fetch all products (with images) in a collection
+ * Requests all products (with images) in a collection
  * @param handle collection handle
  * @returns
  */
-const fetchCollectionProducts: (
+const getCollectionProducts: (
   handle: string
 ) => Promise<ProductType[]> = async (handle) => {
   const getCollectionProductsMethod = async (variables) =>
     SDK.GetCollectionProducts({ handle, ...variables }).then(
       (res) => res.collection
     );
-  const products = await fetchConnectionNodes(getCollectionProductsMethod);
+  const products = await getAllConnectionNodes(getCollectionProductsMethod);
 
-  // Fetch images seperately
+  // Requests images seperately
   const productsWithImages = await Promise.all(
     products.map(async (product) => {
-      const images = await fetchProductImages(product.handle);
+      const images = await getProductImages(product.handle);
       return { ...product, images };
     })
   );
@@ -47,16 +47,16 @@ const fetchCollectionProducts: (
 };
 
 /**
- * Fetch a collection by handle (with product data)
- * @param handle
- * @returns
+ * Requests a collection by handle (with product data)
+ * @param handle collection handle
+ * @returns collection
  */
-export const fetchCollection: (
+export const getCollection: (
   handle: string
 ) => Promise<{ collection: CollectionType; products: ProductType[] }> = async (
   handle
 ) => {
   const { collection } = await SDK.GetCollection({ handle });
-  const products = await fetchCollectionProducts(handle);
+  const products = await getCollectionProducts(handle);
   return { collection, products };
 };

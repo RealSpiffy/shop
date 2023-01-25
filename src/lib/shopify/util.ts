@@ -3,13 +3,11 @@ import type { ConnectionType } from "./types";
 const CONNECTION_REQUEST_INCREMENT = 10;
 
 /**
- * Exhaustive fetch all nodes for a connection request
- * @param requestMethod request returning connection: { nodes, pageInfo }
- * @param count
- * @param reverse
- * @returns
+ * Requests all connection nodes for a connection request
+ * @param requestMethod request returning { connection: { nodes, pageInfo } }
+ * @returns node array
  */
-export async function fetchConnectionNodes<T>(
+export async function getAllConnectionNodes<T>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   requestMethod: (...args: any[]) => Promise<{ connection: ConnectionType<T> }>
 ): Promise<T[]> {
