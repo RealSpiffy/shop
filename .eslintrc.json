@@ -32,9 +32,10 @@
     "no-unused-vars": ["warn"],
     "prefer-const": "warn",
     "import/order": [
-      1,
+      2,
       {
         "groups": [
+          "type",
           "external",
           "builtin",
           "internal",
@@ -59,6 +60,7 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "import/newline-after-import": ["error", { "count": 1 }]
   }
 }

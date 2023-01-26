@@ -7,6 +7,7 @@
     "build": "next build",
     "prepare": "husky install",
     "lint": "next lint",
+    "lint-errors": "next lint --quiet",
     "compile": "tsc --noEmit",
     "build:storybook": "build-storybook",
     "start:storybook": "start-storybook -p 6006",

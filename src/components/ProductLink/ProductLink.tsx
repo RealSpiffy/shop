@@ -2,6 +2,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import styles from "./styles.module.scss";
+
 export interface ProductLinkProps {
   href?: string;
   label: string;
