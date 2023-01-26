@@ -1,6 +1,6 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { ProductDetail } from "@/layouts/ProductDetail";
-import { fetchProductHandles, fetchProduct } from "@/lib/shopify";
+import { getProductHandles, getProduct } from "@/lib/shopify";
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -11,7 +11,7 @@ export const getStaticProps: GetStaticProps = async ({
     : params.handle;
 
   // Fetch data from Shopify
-  const product = await fetchProduct(handle);
+  const product = await getProduct(handle);
 
   return {
     props: {
@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const productHandles = await fetchProductHandles();
+  const productHandles = await getProductHandles();
   const paths = productHandles.map((handle) => ({
     params: { handle },
   }));
