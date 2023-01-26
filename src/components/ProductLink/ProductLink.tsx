@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import clsx from "clsx";
-import styles from "./styles.module.scss";
 import Link from "next/link";
-interface ProductLinkProps {
+import styles from "./styles.module.scss";
+export interface ProductLinkProps {
   href?: string;
   label: string;
   image?: { src: string; alt: string };
