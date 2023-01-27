@@ -1,39 +1,45 @@
+import { MinPriceFieldsFragment } from "@/gql";
 import { ProductType } from "@/lib/shopify";
-import { ProductLinkProps } from "./ProductLink";
+import { ProductLinkProps, ProductLinkImage } from "./ProductLink";
+
+/**
+ * Create image object with alt text
+ * @param image image object from Shopify
+ * @param fallbackAlt fallback alt text in case original is undefined
+ * @returns image object with alt text or undefined
+ */
+const getImage: (
+  image?: ProductType["images"][0],
+  fallbackAlt?: string
+) => ProductLinkImage = (image, fallbackAlt) =>
+  image
+    ? {
+        src: image.src,
+        alt: image.alt ?? fallbackAlt,
+      }
+    : undefined;
+
+/**
+ * Format min price object as a number
+ * @param price min price object from Shopify
+ * @returns price value as a number
+ */
+const getPrice: (price: MinPriceFieldsFragment) => number = (price) =>
+  Number(price.value.amount);
 
 export const productLinkPropsAdapter: (
   product: ProductType
 ) => ProductLinkProps = (product) => {
-  let image: ProductLinkProps["image"];
-  if (product.images[0]) {
-    image = {
-      src: product.images[0].src,
-      alt: product.images[0].alt ?? product.title,
-    };
-  }
-
-  let revealImage: ProductLinkProps["revealImage"];
-  if (product.images[1]) {
-    revealImage = {
-      src: product.images[1].src,
-      alt: product.images[1].alt ?? product.title,
-    };
-  }
-
-  let compareAtPrice: number;
-  if (product.compareAtPrice.value.amount) {
-    const formattedPrice = Number(product.compareAtPrice.value.amount);
-    if (formattedPrice !== 0) {
-      compareAtPrice = formattedPrice;
-    }
-  }
+  const formattedCompareAtPrice = getPrice(product.compareAtPrice);
+  const compareAtPrice =
+    formattedCompareAtPrice !== 0 ? formattedCompareAtPrice : undefined;
 
   return {
     href: `/product/${product.handle}`,
     label: product.title,
-    image,
-    revealImage: revealImage,
-    price: Number(product.price.value.amount),
+    image: getImage(product.images[0], product.title),
+    revealImage: getImage(product.images[1], product.title),
+    price: getPrice(product.price),
     compareAtPrice,
     unavailable: !product.availableForSale,
   };
