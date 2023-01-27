@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import clsx from "clsx";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
-interface ProductLinkProps {
+export type ProductLinkImage = { src: string; alt: string };
+export interface ProductLinkProps {
   href?: string;
   label: string;
-  image?: { src: string; alt: string };
-  revealImage?: { src: string; alt: string };
+  image?: ProductLinkImage;
+  revealImage?: ProductLinkImage;
   price: number;
   compareAtPrice?: number;
   unavailable?: boolean;
