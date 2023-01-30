@@ -6916,6 +6916,8 @@ export type ImageFieldsFragment = { __typename?: 'Image', alt?: string | null, s
 
 export type ImageConnectionFieldsFragment = { __typename?: 'ImageConnection', nodes: Array<{ __typename?: 'Image', alt?: string | null, src: any }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } };
 
+export type MenuItemFieldsFragment = { __typename?: 'MenuItem', title: string, url?: any | null, type: MenuItemType };
+
 export type PageInfoFieldsFragment = { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null };
 
 export type ProductFieldsFragment = { __typename?: 'Product', id: string, handle: string, title: string, availableForSale: boolean, descriptionHtml: any, price: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, compareAtPrice: { __typename?: 'ProductPriceRange', value: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, options: Array<{ __typename?: 'ProductOption', name: string, values: Array<string> }> };
@@ -6957,6 +6959,13 @@ export type GetCollectionsQueryVariables = Exact<{
 
 
 export type GetCollectionsQuery = { __typename?: 'QueryRoot', connection: { __typename?: 'CollectionConnection', nodes: Array<{ __typename?: 'Collection', id: string, handle: string, title: string, descriptionHtml: any, image?: { __typename?: 'Image', alt?: string | null, src: any } | null }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } };
+
+export type GetMenuQueryVariables = Exact<{
+  handle: Scalars['String'];
+}>;
+
+
+export type GetMenuQuery = { __typename?: 'QueryRoot', menu?: { __typename?: 'Menu', title: string, items: Array<{ __typename?: 'MenuItem', title: string, url?: any | null, type: MenuItemType, items: Array<{ __typename?: 'MenuItem', title: string, url?: any | null, type: MenuItemType, items: Array<{ __typename?: 'MenuItem', title: string, url?: any | null, type: MenuItemType }> }> }> } | null };
 
 export type GetProductQueryVariables = Exact<{
   handle: Scalars['String'];
@@ -7029,6 +7038,13 @@ export const ImageConnectionFieldsFragmentDoc = /*#__PURE__*/ gql`
 }
     ${ImageFieldsFragmentDoc}
 ${PageInfoFieldsFragmentDoc}`;
+export const MenuItemFieldsFragmentDoc = /*#__PURE__*/ gql`
+    fragment menuItemFields on MenuItem {
+  title
+  url
+  type
+}
+    `;
 export const MinPriceFieldsFragmentDoc = /*#__PURE__*/ gql`
     fragment minPriceFields on ProductPriceRange {
   value: minVariantPrice {
@@ -7116,6 +7132,22 @@ export const GetCollectionsDocument = /*#__PURE__*/ gql`
 }
     ${CollectionFieldsFragmentDoc}
 ${PageInfoFieldsFragmentDoc}`;
+export const GetMenuDocument = /*#__PURE__*/ gql`
+    query GetMenu($handle: String!) {
+  menu(handle: $handle) {
+    title
+    items {
+      ...menuItemFields
+      items {
+        ...menuItemFields
+        items {
+          ...menuItemFields
+        }
+      }
+    }
+  }
+}
+    ${MenuItemFieldsFragmentDoc}`;
 export const GetProductDocument = /*#__PURE__*/ gql`
     query GetProduct($handle: String!) {
   product(handle: $handle) {
@@ -7163,6 +7195,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetCollections(variables: GetCollectionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionsQuery>(GetCollectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCollections', 'query');
+    },
+    GetMenu(variables: GetMenuQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMenuQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMenuQuery>(GetMenuDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMenu', 'query');
     },
     GetProduct(variables: GetProductQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductQuery>(GetProductDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetProduct', 'query');

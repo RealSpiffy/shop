@@ -1,0 +1,14 @@
+query GetMenu($handle: String!) {
+  menu(handle: $handle) {
+    title
+    items {
+      ...menuItemFields
+      items {
+        ...menuItemFields
+        items {
+          ...menuItemFields
+        }
+      }
+    }
+  }
+}

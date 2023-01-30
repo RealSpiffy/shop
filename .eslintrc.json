@@ -45,12 +45,17 @@
         ],
         "pathGroups": [
           {
+            "pattern": "@/**/*",
+            "group": "type",
+            "position": "before"
+          },
+          {
             "pattern": "react",
             "group": "external",
             "position": "before"
           },
           {
-            "pattern": "@/*",
+            "pattern": "@/**/*",
             "group": "internal"
           }
         ],
