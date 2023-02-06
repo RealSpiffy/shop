@@ -1,4 +1,4 @@
-import type { ConnectionType } from "./types";
+import type { ConnectionType } from "../types";
 
 const CONNECTION_REQUEST_INCREMENT = 10;
 
