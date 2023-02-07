@@ -1,14 +1,23 @@
 import { CollectionType } from "@/lib/shopify";
-import { CollectionLinkProps } from "./CollectionLink";
+import { CollectionLinkProps, CollectionLinkImage } from "./CollectionLink";
+
+const getBackground: (
+  image?: CollectionType["image"],
+  fallBackAlt?: string
+) => CollectionLinkImage = (image, fallbackAlt) =>
+  image
+    ? {
+        src: image.src,
+        alt: image.alt ?? fallbackAlt,
+      }
+    : undefined;
 
 export const collectionLinkPropsAdapter: (
   collection: CollectionType
 ) => CollectionLinkProps = (collection) => {
   return {
-    id: collection.id,
-    handle: collection.handle,
+    href: `/collection/${collection.handle}`,
     label: collection.title,
-    image: { alt: collection.image.alt, src: collection.image.src },
-    descriptionHtml: collection.descriptionHtml,
+    background: getBackground(collection.image, collection.title),
   };
 };
