@@ -9,7 +9,7 @@
 }
 
 .menuBtn {
-  font-size: 2rem;
+  font-size: 32px;
 }
 
 .logo {
@@ -20,6 +20,9 @@
 
 .links {
   display: none;
+  &li {
+    list-style: none;
+  }
 }
 
 .linksContainer {
@@ -53,7 +56,6 @@
   .links,
   .linksContainer {
     padding-left: 0;
-    text-transform: capitalize;
     display: flex;
     gap: 20px;
     justify-content: space-evenly;

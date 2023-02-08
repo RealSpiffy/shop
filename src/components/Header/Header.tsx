@@ -14,21 +14,25 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const primaryContent = primaryLinks.map((link) => {
     return (
-      <Link
-        className={clsx(styles.label, link.cta && styles.cta)}
-        href={link.href}
-        key={link.label}
-      >
-        {link.label}
-      </Link>
+      <li className={clsx(styles.links)} key={link.label}>
+        <Link
+          className={clsx(styles.label, link.cta && styles.cta)}
+          href={link.href}
+          key={link.label}
+        >
+          {link.label}
+        </Link>
+      </li>
     );
   });
 
   const secondaryContent = secondaryLinks.map((link) => {
     return (
-      <Link className={styles.label} href={link.href} key={link.label}>
-        {link.label}
-      </Link>
+      <li className={clsx(styles.links)} key={link.label}>
+        <Link className={styles.label} href={link.href} key={link.label}>
+          {link.label}
+        </Link>
+      </li>
     );
   });
   return (
@@ -47,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
         <ul className={clsx(styles.links)}>{primaryContent}</ul>
 
         <ul className={clsx(styles.linksContainer)}>
-          <li className={clsx(styles.links)}>{secondaryContent}</li>
+          {secondaryContent}
           <li>
             <button
               type="button"
