@@ -1,6 +1,6 @@
-import { MdMenu } from "react-icons/md";
 import clsx from "clsx";
 import Link from "next/link";
+import { MdMenu } from "react-icons/md";
 import styles from "./Header.module.scss";
 
 export interface HeaderProps {
@@ -18,7 +18,6 @@ export const Header: React.FC<HeaderProps> = ({
         <Link
           className={clsx(styles.label, link.cta && styles.cta)}
           href={link.href}
-          key={link.label}
         >
           {link.label}
         </Link>
@@ -29,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
   const secondaryContent = secondaryLinks.map((link) => {
     return (
       <li className={clsx(styles.links)} key={link.label}>
-        <Link className={styles.label} href={link.href} key={link.label}>
+        <Link className={styles.label} href={link.href}>
           {link.label}
         </Link>
       </li>
@@ -48,14 +47,14 @@ export const Header: React.FC<HeaderProps> = ({
 
         <div className={styles.logo}>Shop</div>
 
-        <ul className={clsx(styles.links)}>{primaryContent}</ul>
+        <ul className={styles.links}>{primaryContent}</ul>
 
         <ul className={clsx(styles.linksContainer)}>
           {secondaryContent}
           <li>
             <button
               type="button"
-              className={clsx(styles.btn)}
+              className={styles.btn}
               onClick={() => console.log("cart")}
             >
               Cart: 0
