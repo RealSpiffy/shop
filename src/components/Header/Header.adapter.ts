@@ -6,9 +6,27 @@ export const headerPropsAdapter: (
   primaryMenu: MenuType,
   secondaryMenu: MenuType
 ) => HeaderProps = (primaryMenu, secondaryMenu) => {
-  // TODO: implement adapter
+  const primaryLinks = primaryMenu.items.map((item) => {
+    const { url } = parseMenuItem(item);
+
+    return {
+      href: url,
+      label: item.title,
+      cta: url === `/collection/sale`,
+    };
+  });
+
+  const secondaryLinks = secondaryMenu.items.map((item) => {
+    const { url } = parseMenuItem(item);
+
+    return {
+      href: url,
+      label: item.title,
+    };
+  });
+
   return {
-    primaryLinks: [],
-    secondaryLinks: [],
+    primaryLinks,
+    secondaryLinks,
   };
 };
