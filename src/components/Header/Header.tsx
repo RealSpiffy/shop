@@ -1,3 +1,6 @@
+import { MdMenu } from "react-icons/md";
+import clsx from "clsx";
+import Link from "next/link";
 import styles from "./Header.module.scss";
 
 export interface HeaderProps {
@@ -9,11 +12,57 @@ export const Header: React.FC<HeaderProps> = ({
   primaryLinks,
   secondaryLinks,
 }) => {
+  const primaryContent = primaryLinks.map((link) => {
+    return (
+      <li className={clsx(styles.links)} key={link.label}>
+        <Link
+          className={clsx(styles.label, link.cta && styles.cta)}
+          href={link.href}
+          key={link.label}
+        >
+          {link.label}
+        </Link>
+      </li>
+    );
+  });
+
+  const secondaryContent = secondaryLinks.map((link) => {
+    return (
+      <li className={clsx(styles.links)} key={link.label}>
+        <Link className={styles.label} href={link.href} key={link.label}>
+          {link.label}
+        </Link>
+      </li>
+    );
+  });
   return (
-    <header>
-      SHOP
-      <div>primary: {JSON.stringify(primaryLinks)}</div>
-      <div>secondary: {JSON.stringify(secondaryLinks)}</div>
+    <header className={styles.wrapper}>
+      <nav className={styles.navbar}>
+        <button
+          type="button"
+          className={clsx(styles.btn, styles.menuBtn)}
+          onClick={() => console.log("open side bar")}
+        >
+          <MdMenu />
+        </button>
+
+        <div className={styles.logo}>Shop</div>
+
+        <ul className={clsx(styles.links)}>{primaryContent}</ul>
+
+        <ul className={clsx(styles.linksContainer)}>
+          {secondaryContent}
+          <li>
+            <button
+              type="button"
+              className={clsx(styles.btn)}
+              onClick={() => console.log("cart")}
+            >
+              Cart: 0
+            </button>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };
