@@ -3,10 +3,11 @@ import Link from "next/link";
 import { HiChevronRight } from "react-icons/hi";
 import styles from "./styles.module.scss";
 
+export type CollectionLinkImage = { src: string; alt: string };
 export interface CollectionLinkProps {
   href?: string;
   label: string;
-  background?: { src: string; alt: string };
+  background?: CollectionLinkImage;
 }
 
 export const CollectionLink = ({
