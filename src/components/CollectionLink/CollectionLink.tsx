@@ -17,8 +17,8 @@ export const CollectionLink = ({
 }: CollectionLinkProps) => {
   const hasBackground = !!background;
 
-  const outerClasses = clsx(
-    styles.outer,
+  const innerClasses = clsx(
+    styles.inner,
     hasBackground && styles.hasBackground
   );
 
@@ -39,17 +39,15 @@ export const CollectionLink = ({
     </>
   );
   return (
-    <div className={styles.aspectRatioBox}>
-      <div className={styles.aspectRatioBoxInside}>
-        {href ? (
-          <Link href={href} className={outerClasses}>
-            {content}
-            <span className={styles.linkArrow}>{<HiChevronRight />}</span>
-          </Link>
-        ) : (
-          <div className={outerClasses}>{content}</div>
-        )}
-      </div>
+    <div className={styles.outer}>
+      {href ? (
+        <Link href={href} className={innerClasses}>
+          {content}
+          <span className={styles.linkArrow}>{<HiChevronRight />}</span>
+        </Link>
+      ) : (
+        <div className={innerClasses}>{content}</div>
+      )}
     </div>
   );
 };
