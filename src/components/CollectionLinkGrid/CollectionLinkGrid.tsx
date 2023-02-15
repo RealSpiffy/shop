@@ -2,19 +2,29 @@ import {
   CollectionLink,
   collectionLinkPropsAdapter,
 } from "@/components/CollectionLink";
-import styles from "./styles.module.scss";
+import { LayoutGrid } from "@/components/LayoutGrid";
+import { CollectionType } from "@/lib/shopify";
+import styles from "./CollectionLinkGrid.module.scss";
 
-export const CollectionLinkGrid = ({ collections }) => {
+interface CollectionsProps {
+  collections: CollectionType[];
+}
+
+export const CollectionLinkGrid: React.FC<CollectionsProps> = ({
+  collections,
+}) => {
   return (
-    <ul className={styles.gridContainer}>
-      {collections.map((collection) => {
-        const data = collectionLinkPropsAdapter(collection);
-        return (
-          <li key={collection.handle} className={styles.gridItem}>
-            <CollectionLink {...data} />
-          </li>
-        );
-      })}
-    </ul>
+    <LayoutGrid>
+      <ul className={styles.gridContainer}>
+        {collections.map((collection) => {
+          const linkProps = collectionLinkPropsAdapter(collection);
+          return (
+            <li key={collection.handle}>
+              <CollectionLink {...linkProps} />
+            </li>
+          );
+        })}
+      </ul>
+    </LayoutGrid>
   );
 };

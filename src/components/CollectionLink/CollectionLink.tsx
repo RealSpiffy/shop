@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { HiChevronRight } from "react-icons/hi";
-import styles from "./styles.module.scss";
+import styles from "./CollectionLink.module.scss";
 
 export type CollectionLinkImage = { src: string; alt: string };
 export interface CollectionLinkProps {
