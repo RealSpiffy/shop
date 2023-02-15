@@ -22,7 +22,9 @@ export default {
 } as ComponentMeta<typeof CollectionLink>;
 
 const Template: ComponentStory<typeof CollectionLink> = (args) => (
-  <CollectionLink {...args} />
+  <div style={{ width: "300px" }}>
+    <CollectionLink {...args} />
+  </div>
 );
 
 const placeholderBg = {

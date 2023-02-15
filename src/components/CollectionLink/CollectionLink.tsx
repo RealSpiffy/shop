@@ -38,12 +38,18 @@ export const CollectionLink = ({
       <div className={styles.label}>{label}</div>
     </>
   );
-  return href ? (
-    <Link href={href} className={outerClasses}>
-      {content}
-      <span className={styles.linkArrow}>{<HiChevronRight />}</span>
-    </Link>
-  ) : (
-    <div className={outerClasses}>{content}</div>
+  return (
+    <div className={styles.aspectRatioBox}>
+      <div className={styles.aspectRatioBoxInside}>
+        {href ? (
+          <Link href={href} className={outerClasses}>
+            {content}
+            <span className={styles.linkArrow}>{<HiChevronRight />}</span>
+          </Link>
+        ) : (
+          <div className={outerClasses}>{content}</div>
+        )}
+      </div>
+    </div>
   );
 };

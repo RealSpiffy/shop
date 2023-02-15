@@ -1,0 +1,14 @@
+.gridContainer {
+  padding: 20px;
+  list-style-type: none;
+  display: grid;
+  max-width: 374px;
+  margin: 0 auto;
+  gap: 20px;
+  @media (min-width: 768px) {
+    // TODO: upgrade to grid layout
+    max-width: 714px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
