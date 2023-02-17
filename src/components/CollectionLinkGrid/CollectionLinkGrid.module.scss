@@ -1,0 +1,14 @@
+.gridContainer {
+  grid-column: span 4;
+  list-style-type: none;
+  padding: 0;
+
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-column: 3/11;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
