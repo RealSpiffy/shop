@@ -1,0 +1,15 @@
+$gutter: 20px;
+
+.outer {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
+  max-width: calc(1080px + 2 * #{$gutter});
+  padding-left: $gutter;
+  padding-right: $gutter;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}

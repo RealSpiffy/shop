@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import { ProductLink, productLinkPropsAdapter } from "@/components/ProductLink";
 import { ProductType } from "@/lib/shopify";
 import styles from "./styles.module.scss";
+import { LayoutGrid } from "../LayoutGrid";
 
 export interface ProductLinkGridProps {
   products: ProductType[];
@@ -11,7 +11,7 @@ export const ProductLinkGrid: React.FC<ProductLinkGridProps> = ({
   products,
 }) => {
   return (
-    <div>
+    <LayoutGrid>
       <ul className={styles.gridContainer}>
         {products.map((product) => {
           const productLinkProps = productLinkPropsAdapter(product);
@@ -22,6 +22,6 @@ export const ProductLinkGrid: React.FC<ProductLinkGridProps> = ({
           );
         })}
       </ul>
-    </div>
+    </LayoutGrid>
   );
 };
