@@ -22,13 +22,13 @@ export default {
 } as ComponentMeta<typeof CollectionLink>;
 
 const Template: ComponentStory<typeof CollectionLink> = (args) => (
-  <div style={{ width: "300px" }}>
+  <div style={{ width: "530px" }}>
     <CollectionLink {...args} />
   </div>
 );
 
 const placeholderBg = {
-  src: "https://picsum.photos/id/14/200/200",
+  src: "https://picsum.photos/id/26/350/350",
   alt: "collection 1",
 };
 
@@ -37,6 +37,13 @@ Default.args = {
   background: placeholderBg,
   label: "Collection",
   href: "/collection",
+};
+
+export const LongerCollectionName = Template.bind({});
+LongerCollectionName.args = {
+  background: placeholderBg,
+  label: "Longer Collection Name",
+  href: "/other",
 };
 
 export const NoBackground = Template.bind({});

@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { HiChevronRight } from "react-icons/hi";
 import styles from "./CollectionLink.module.scss";
 
 export type CollectionLinkImage = { src: string; alt: string };
@@ -17,11 +16,6 @@ export const CollectionLink = ({
 }: CollectionLinkProps) => {
   const hasBackground = !!background;
 
-  const innerClasses = clsx(
-    styles.inner,
-    hasBackground && styles.hasBackground
-  );
-
   const content = (
     <>
       {hasBackground && (
@@ -32,22 +26,18 @@ export const CollectionLink = ({
             alt={background.alt}
             className={styles.bgImage}
           />
-          <span className={styles.overlay}></span>
         </div>
       )}
-      <div className={styles.label}>{label}</div>
+      <div className={styles.labelContainer}>
+        <h2 className={styles.label}>{label}</h2>
+      </div>
     </>
   );
-  return (
-    <div className={styles.outer}>
-      {href ? (
-        <Link href={href} className={innerClasses}>
-          {content}
-          <span className={styles.linkArrow}>{<HiChevronRight />}</span>
-        </Link>
-      ) : (
-        <div className={innerClasses}>{content}</div>
-      )}
-    </div>
+  return href ? (
+    <Link href={href} className={styles.outer}>
+      {content}
+    </Link>
+  ) : (
+    <div className={styles.outer}>{content}</div>
   );
 };
