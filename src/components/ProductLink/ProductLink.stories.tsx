@@ -17,7 +17,9 @@ export default {
 } as ComponentMeta<typeof ProductLink>;
 
 const Template: ComponentStory<typeof ProductLink> = (args) => (
-  <ProductLink {...args} />
+  <div style={{ width: "200px" }}>
+    <ProductLink {...args} />
+  </div>
 );
 
 export const Default = Template.bind({});
