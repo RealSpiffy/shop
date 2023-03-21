@@ -18,6 +18,16 @@ export default {
       control: "select",
       options: ["default", "a-z", "$-$$$"],
     },
+    headingTag: {
+      control: "select",
+      options: ["h1", "h2", "h3", "h4", "h5", "h6", "div"],
+      defaultValue: "div",
+    },
+    subtitleTag: {
+      control: "select",
+      options: ["h1", "h2", "h3", "h4", "h5", "h6", "div"],
+      defaultValue: "div",
+    },
   },
 } as ComponentMeta<typeof SectionBanner>;
 
@@ -41,4 +51,6 @@ Action.args = {
   heading: "Collection Name",
   subtitle: "6 Items",
   action: "default",
+  headingTag: "h2",
+  subtitleTag: "h3",
 };

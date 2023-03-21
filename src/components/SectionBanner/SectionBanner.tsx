@@ -5,25 +5,36 @@ interface SectionBannerProps {
   heading: string;
   subtitle?: string;
   action?: string;
+  headingTag?: string;
+  subtitleTag?: string;
 }
 
 export const SectionBanner = ({
   heading,
   subtitle,
   action,
+  headingTag = "div",
+  subtitleTag = "div",
 }: SectionBannerProps) => {
   const spaceBetween = !!subtitle && !!action;
   const noOptions = !subtitle && !action;
 
+  const CustomHeadingTag = headingTag as keyof JSX.IntrinsicElements;
+  const CustomSubtitleTag = subtitleTag as keyof JSX.IntrinsicElements;
+
   return (
     <div className={styles.container}>
-      <h2 className={clsx(styles.main, styles.wordBreak)}>{heading}</h2>
+      <CustomHeadingTag className={clsx(styles.main, styles.wordBreak)}>
+        {heading}
+      </CustomHeadingTag>
       {noOptions ? null : (
         <div className={spaceBetween && styles.options}>
           {subtitle ? (
-            <h4 className={clsx(styles.subtitle, styles.wordBreak)}>
+            <CustomSubtitleTag
+              className={clsx(styles.subtitle, styles.wordBreak)}
+            >
               {subtitle}
-            </h4>
+            </CustomSubtitleTag>
           ) : null}
           {action ? (
             <div className={styles.actionWrap}>Sort by: {action}</div>
