@@ -5,6 +5,7 @@ import styles from "./CollectionLink.module.scss";
 export type CollectionLinkImage = { src: string; alt: string };
 export interface CollectionLinkProps {
   href?: string;
+  tagName?: string;
   label: string;
   background?: CollectionLinkImage;
 }
@@ -13,8 +14,11 @@ export const CollectionLink = ({
   href,
   label,
   background,
+  tagName = "div",
 }: CollectionLinkProps) => {
   const hasBackground = !!background;
+
+  const CustomTag = tagName as keyof JSX.IntrinsicElements;
 
   const content = (
     <>
@@ -29,7 +33,7 @@ export const CollectionLink = ({
         </div>
       )}
       <div className={styles.labelContainer}>
-        <h2 className={styles.label}>{label}</h2>
+        <CustomTag className={styles.label}>{label}</CustomTag>
       </div>
     </>
   );

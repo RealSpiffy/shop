@@ -18,11 +18,16 @@ export default {
       control: "text",
       defaultValue: "",
     },
+    tagName: {
+      control: "select",
+      options: ["h1", "h2", "h3", "h4", "h5", "h6", "div"],
+      defaultValue: "div",
+    },
   },
 } as ComponentMeta<typeof CollectionLink>;
 
 const Template: ComponentStory<typeof CollectionLink> = (args) => (
-  <div style={{ width: "530px" }}>
+  <div style={{ width: "400px" }}>
     <CollectionLink {...args} />
   </div>
 );
