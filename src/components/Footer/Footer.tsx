@@ -1,5 +1,6 @@
 import { HiChevronRight } from "react-icons/hi";
 import styles from "./Footer.module.scss";
+import { LayoutGrid } from "../LayoutGrid";
 
 export interface FooterProps {
   linkGroups: { label: string; links: { href: string; label: string }[] }[];
@@ -29,29 +30,30 @@ export const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
 
   return (
     <footer className={styles.outer}>
-      <div className={styles.inner}>
-        <div className={styles.content}>{content}</div>
+      <LayoutGrid>
+        <div className={styles.inner}>
+          <div className={styles.content}>{content}</div>
 
-        <form className={styles.formContainer}>
-          <label htmlFor="email" className={styles.categoryLabel}>
-            Newsletter
-          </label>
-          <div className={styles.formWrap}>
-            <input
-              type="email"
-              id="email"
-              name="userEmail"
-              placeholder="Enter your email"
-              className={styles.formInput}
-            ></input>
-            <button type="submit" className={styles.formButton}>
-              <HiChevronRight />
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <small className={styles.copyright}>© Real Spiffy {year}</small>
+          <form className={styles.formContainer}>
+            <label htmlFor="email" className={styles.categoryLabel}>
+              Newsletter
+            </label>
+            <div className={styles.formWrap}>
+              <input
+                type="email"
+                id="email"
+                name="userEmail"
+                placeholder="Enter your email"
+                className={styles.formInput}
+              ></input>
+              <button type="submit" className={styles.formButton}>
+                <HiChevronRight />
+              </button>
+            </div>
+          </form>
+        </div>
+        <small className={styles.copyright}>© Real Spiffy {year}</small>
+      </LayoutGrid>
     </footer>
   );
 };
