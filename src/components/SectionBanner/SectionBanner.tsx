@@ -5,22 +5,19 @@ interface SectionBannerProps {
   heading: string;
   subtitle?: string;
   action?: string;
-  headingTag?: string;
-  subtitleTag?: string;
+  headingTag?: keyof JSX.IntrinsicElements;
+  subtitleTag?: keyof JSX.IntrinsicElements;
 }
 
 export const SectionBanner = ({
   heading,
   subtitle,
   action,
-  headingTag = "div",
-  subtitleTag = "div",
+  headingTag: CustomHeadingTag = "div",
+  subtitleTag: CustomSubtitleTag = "div",
 }: SectionBannerProps) => {
   const spaceBetween = !!subtitle && !!action;
   const noOptions = !subtitle && !action;
-
-  const CustomHeadingTag = headingTag as keyof JSX.IntrinsicElements;
-  const CustomSubtitleTag = subtitleTag as keyof JSX.IntrinsicElements;
 
   return (
     <div className={styles.container}>
