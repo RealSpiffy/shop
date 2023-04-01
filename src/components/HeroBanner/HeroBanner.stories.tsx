@@ -10,10 +10,6 @@ export default {
       control: "object",
       defaultValue: undefined,
     },
-    logo: {
-      control: "object",
-      defaultValue: undefined,
-    },
   },
 } as ComponentMeta<typeof HeroBanner>;
 
@@ -26,13 +22,7 @@ const placeholderBg = {
   alt: "concrete wall",
 };
 
-const placeholderLogo = {
-  src: "rs-logo.svg",
-  alt: "real spiffy logo",
-};
-
 export const Default = Template.bind({});
 Default.args = {
   background: placeholderBg,
-  logo: placeholderLogo,
 };
