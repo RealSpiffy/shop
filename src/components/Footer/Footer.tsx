@@ -52,7 +52,9 @@ export const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
             </div>
           </form>
         </div>
-        <small className={styles.copyright}>© Real Spiffy {year}</small>
+        <div className={styles.copyrightWrap}>
+          <small className={styles.copyright}>© Real Spiffy {year}</small>
+        </div>
       </LayoutGrid>
     </footer>
   );
