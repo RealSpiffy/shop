@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { MdMenu } from "react-icons/md";
 import styles from "./Header.module.scss";
+import { LayoutGrid } from "../LayoutGrid";
 
 export interface HeaderProps {
   primaryLinks: { href: string; label: string; cta?: boolean }[];
@@ -36,32 +37,34 @@ export const Header: React.FC<HeaderProps> = ({
   });
   return (
     <header className={styles.wrapper}>
-      <nav className={styles.navbar}>
-        <button
-          type="button"
-          className={clsx(styles.btn, styles.menuBtn)}
-          onClick={() => console.log("open side bar")}
-        >
-          <MdMenu />
-        </button>
+      <LayoutGrid>
+        <nav className={styles.navbar}>
+          <button
+            type="button"
+            className={clsx(styles.btn, styles.menuBtn)}
+            onClick={() => console.log("open side bar")}
+          >
+            <MdMenu />
+          </button>
 
-        <div className={styles.logo}>Shop</div>
+          <div className={styles.logo}>Shop</div>
 
-        <ul className={styles.links}>{primaryContent}</ul>
+          <ul className={styles.links}>{primaryContent}</ul>
 
-        <ul className={clsx(styles.linksContainer)}>
-          {secondaryContent}
-          <li>
-            <button
-              type="button"
-              className={styles.btn}
-              onClick={() => console.log("cart")}
-            >
-              Cart: 0
-            </button>
-          </li>
-        </ul>
-      </nav>
+          <ul className={clsx(styles.linksContainer)}>
+            {secondaryContent}
+            <li>
+              <button
+                type="button"
+                className={styles.btn}
+                onClick={() => console.log("cart")}
+              >
+                0
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </LayoutGrid>
     </header>
   );
 };
