@@ -46,6 +46,20 @@
   background: transparent;
   border: none;
 }
+
+.cartIcon {
+  width: 48px;
+  position: relative;
+}
+
+.cartValue {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  font-size: 1em;
+}
+
 @media (min-width: 768px) {
   .menuBtn {
     display: none;
@@ -61,5 +75,6 @@
     display: flex;
     gap: 20px;
     justify-content: space-evenly;
+    align-items: center;
   }
 }

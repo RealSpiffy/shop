@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { MdMenu } from "react-icons/md";
 import styles from "./Header.module.scss";
+import CartIcon from "../../../public/cart-icon.svg";
 import { LayoutGrid } from "../LayoutGrid";
 
 export interface HeaderProps {
@@ -56,10 +57,11 @@ export const Header: React.FC<HeaderProps> = ({
             <li>
               <button
                 type="button"
-                className={styles.btn}
+                className={clsx(styles.btn, styles.cartIcon)}
                 onClick={() => console.log("cart")}
               >
-                0
+                <CartIcon />
+                <span className={styles.cartValue}>0</span>
               </button>
             </li>
           </ul>
