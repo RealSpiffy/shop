@@ -61,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => console.log("cart")}
               >
                 <CartIcon />
-                <span className={styles.cartValue}>0</span>
+                <span className={styles.cartValue}>001</span>
               </button>
             </li>
           </ul>
