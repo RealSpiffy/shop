@@ -6,6 +6,11 @@
   justify-content: space-between;
   align-items: center;
   grid-column: 1/-1;
+
+  height: 64px;
+  @media (min-width: 768px) {
+    height: 80px;
+  }
 }
 
 .menuBtn {
@@ -28,12 +33,15 @@
 .linksContainer {
   padding: 0;
 }
+
 .linksContainer li {
   list-style: none;
 }
+
 .label {
   text-decoration: none;
   font-weight: 600;
+  font-size: 1.25em;
 }
 
 .cta {
