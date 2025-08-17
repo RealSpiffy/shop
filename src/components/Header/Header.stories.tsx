@@ -55,13 +55,13 @@ const Template = (args: ArgsType) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  primaryLabels: "SWEATS,ACCESSORIES",
-  secondaryLabels: "CONTACT",
+  primaryLabels: "Sweats,Accessories",
+  secondaryLabels: "Contact",
 };
 
 export const SaleSectionCTA = Template.bind({});
 SaleSectionCTA.args = {
-  primaryLabels: "SWEATS,ACCESSORIES,SALE",
+  primaryLabels: "Sweats,Accessories,Sale",
   primaryLabelCTA: true,
-  secondaryLabels: "CONTACT",
+  secondaryLabels: "Contact",
 };
